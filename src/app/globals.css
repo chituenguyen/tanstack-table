@@ -19,3 +19,11 @@ body {
 .MuiPagination-ul{
   justify-content: center;
 }
+@layer components{
+  .button{
+    @apply py-2 px-[10px] rounded-md bg-white text-[#555] text-[13px];
+  }
+  .button-active{
+    @apply text-white text-[13px] font-bold leading-4 py-2 px-[10px] rounded-md bg-[#2187E5];
+  }
+}
