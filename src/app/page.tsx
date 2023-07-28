@@ -43,7 +43,7 @@ const IndexPage = () => {
       }
     });
   };
-  const selectedColumns = columns.find((column) => column.name === group)!.data;
+      const selectedColumns = columns.find((column) => column.name === group)!.data;
   return (
     <div className="p-6  containerPage">
       <div className="w-[889px] px-[50px] p-6 flex flex-col gap-14px">
