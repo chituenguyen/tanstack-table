@@ -20,6 +20,9 @@ body {
   justify-content: center;
 }
 @layer components{
+  .containerPage{
+    @apply max-w-[1440px] mx-auto;
+  }
   .button{
     @apply py-2 px-[10px] rounded-md bg-white text-[#555] text-[13px];
   }

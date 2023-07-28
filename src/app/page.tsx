@@ -5,6 +5,7 @@ import useTournamentStatistics from "./hooks/useFetch";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import columns from "../app/const/Group";
+import { PaginationItem } from "@mui/material";
 
 const IndexPage = () => {
   const [page, setPage] = useState(1);
@@ -44,8 +45,11 @@ const IndexPage = () => {
   };
   const selectedColumns = columns.find((column) => column.name === group)!.data;
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-4">Player stats</h1>
+    <div className="p-6  containerPage">
+      <div className="w-[889px] px-[50px] p-6 flex flex-col gap-14px">
+      <h1 className="text-basic text-sm font-bold not-italic uppercase">
+        Thông số cầu thủ
+      </h1>
       <div className="flex items-center">
         {columns.map((item) => (
           <button
@@ -57,13 +61,15 @@ const IndexPage = () => {
           </button>
         ))}
       </div>
-      <table className="w-full table-auto border-collapse">
+      <table className="">
         <thead>
-          <tr className="bg-gray-100">
+          <tr className="">
             {selectedColumns.map((column, id) => (
               <th
                 key={id}
-                className="border px-4 py-2 hover:cursor-pointer"
+                className={`text-basic text-12px font-bold not-italic leading-4 px-4 py-2 hover:cursor-pointer border-y-[1px] bofder-[#CDDDED] ${
+                  id == 1 ? "text-start px-0" : ""
+                }`}
                 onClick={() => handleColumnClick(column.accessorKey)} // Pass the column header to the click handler
               >
                 {column.header}
@@ -74,7 +80,7 @@ const IndexPage = () => {
         <tbody>
           {apiResponse?.data.results.map((row: any, id: number) => {
             return (
-              <tr key={id} className="text-center">
+              <tr key={id} className={`text-center`}>
                 {selectedColumns.map((column) => {
                   const accessorKeys = column.accessorKey.split("."); // Split the accessorKey by '.' to access nested properties
                   let cellData = row;
@@ -83,7 +89,21 @@ const IndexPage = () => {
                       cellData = cellData[key];
                     }
                   });
-                  return <td key={column.accessorKey}>{cellData}</td>;
+                  console.log(column);
+                  return (
+                    <td
+                      key={column.accessorKey}
+                      className={`${
+                        column.accessorKey === "player.name" ? "text-start" : ""
+                      } ${
+                        column.accessorKey === "rating"
+                          ? "text-rega-blue !font-bold"
+                          : ""
+                      } text-basic text-12px font-normal py-2 leading-14px border-b-[1px] border-[#CDDDED] `}
+                    >
+                      {column.accessorKey === "player.id" ? id + 1 : cellData}
+                    </td>
+                  );
                 })}
               </tr>
             );
@@ -91,13 +111,25 @@ const IndexPage = () => {
         </tbody>
       </table>
 
-      <Stack spacing={2}>
+      <Stack spacing={2} className="mt-3">
         <Pagination
           count={apiResponse?.data.pages}
           page={page}
           onChange={handleChange}
+          renderItem={(item) => (
+            <PaginationItem
+              {...item}
+              sx={{
+                "&.Mui-selected": {
+                  backgroundColor: "#2187E5",
+                  color: "white",
+                },
+              }}
+            />
+          )}
         />
       </Stack>
+      </div>
     </div>
   );
 };
