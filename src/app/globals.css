@@ -15,3 +15,7 @@
 body {
 
 }
+
+.MuiPagination-ul{
+  justify-content: center;
+}
