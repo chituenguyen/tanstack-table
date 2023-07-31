@@ -84,6 +84,7 @@ const Tab: React.FC<TabProps> = ({ tabs, initialData,onInitialDataChange }) => {
             key={index}
             className="button-check"
             onClick={() => handleCheckboxChange(item, false)}
+            type="button"
           >
             {item.header}
           </button>

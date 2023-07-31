@@ -230,10 +230,7 @@ const IndexPage = () => {
                             id == 1 ? "text-start px-0" : ""
                           }
         sorted:true
-                      ${
-                        column.sorted ? "hover:cursor-pointer" : "cursor-auto"
-                      }`}
-                          onClick={() => handleColumnClick(column.accessorKey)} // Pass the column header to the click handler
+                      `}
                         >
                           <p
                             className={`flex ${
@@ -243,31 +240,6 @@ const IndexPage = () => {
                             } flex-col`}
                           >
                             <p>{column.header}</p>
-                            {/* {column.sorted ? (
-                              <svg
-                                width="16"
-                                height="16"
-                                viewBox="0 0 16 16"
-                                className={`${
-                                  column.accessorKey === sorted
-                                    ? "rotate-180"
-                                    : ""
-                                }`}
-                              >
-                                <path
-                                  fill={`${
-                                    column.accessorKey === sorted ||
-                                    "-" + column.accessorKey === sorted
-                                      ? "#2187E5"
-                                      : ""
-                                  }`}
-                                  d="M13 5H3l5 8z"
-                                  fill-rule="evenodd"
-                                ></path>
-                              </svg>
-                            ) : (
-                              ""
-                            )} */}
                           </p>
                         </th>
                       ))
