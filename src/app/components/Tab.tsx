@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-
 import "react-toastify/dist/ReactToastify.css";
+import CheckboxInput from "./Checkbox";
 
 interface TabItem {
   id: number;
@@ -23,61 +22,41 @@ interface InitialData {
 
 interface TabProps {
   tabs: TabItem[];
-  initialData: InitialData;
+  initialData: InitialData,
   onInitialDataChange: (newData: InitialData) => void;
 }
 
-const Tab: React.FC<TabProps> = ({
-  tabs,
-  initialData,
-  onInitialDataChange,
-}) => {
-  // toast.configure();
+const Tab: React.FC<TabProps> = ({ tabs, initialData,onInitialDataChange }) => {
   const [activeTab, setActiveTab] = useState<number | null>(null);
-
   const handleTabChange = (tabId: number) => {
     setActiveTab((prevActiveTab) => (prevActiveTab === tabId ? null : tabId));
   };
-
-  const isHeaderSelected = (header: string) => {
-    return initialData.data.some((item) => item.header === header);
-  };
-
-  const handleRemoveCheckbox = (header: string) => {
-    const newData = {
-      data: initialData.data.filter((item) => item.header !== header),
-    };
-    onInitialDataChange(newData);
-  };
-  const handleAddCheckbox = (item: TabItem) => {
-    if (initialData.data.length >= 8) {
-      // bởi vì còn 2 trường id và name nên là 8
-      toast("Maximum number of filter fields already selected", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    } else {
+  const handleCheckboxChange = (item:any, isChecked: boolean) => {
+    console.log(item, isChecked)
+    if (isChecked) {
       const newData = {
         data: [...initialData.data, item],
       };
       onInitialDataChange(newData);
     }
+    else{
+      const newData = {
+        data: initialData.data.filter((i) => i.accessorKey !== item.accessorKey),
+      };
+      onInitialDataChange(newData);
+    }
   };
-
   return (
     <div className="bg-surface-1">
       <div className="flex gap-3">
         {tabs.map((tab) => (
           <button
             key={tab.id}
-            className={`${activeTab === tab.id ? "buttonTab-active" : "buttonTab"}`}
+            className={`${
+              activeTab === tab.id ? "buttonTab-active" : "buttonTab"
+            }`}
             onClick={() => handleTabChange(tab.id)}
+            type="button"
           >
             {tab.name}
           </button>
@@ -92,19 +71,9 @@ const Tab: React.FC<TabProps> = ({
             } overflow-hidden`}
           >
             {tab.data.map((item) => (
-              <div key={item.accessorKey} className="flex gap-1 items-center">
-                <input
-                  type="checkbox"
-                  className="mr-2"
-                  checked={isHeaderSelected(item.header)}
-                  onChange={() =>
-                    isHeaderSelected(item.header)
-                      ? handleRemoveCheckbox(item.header)
-                      : handleAddCheckbox(item)
-                  }
-                />
-                <h3 className="truncate">{item.header}</h3>
-              </div>
+              <CheckboxInput label={item.header} name={item.accessorKey} initialData={initialData} onChange={(isChecked) =>
+                handleCheckboxChange(item, isChecked)
+              }/>
             ))}
           </div>
         ))}
@@ -114,13 +83,12 @@ const Tab: React.FC<TabProps> = ({
           <button
             key={index}
             className="button-check"
-            onClick={() => handleRemoveCheckbox(item.header)}
+            onClick={() => handleCheckboxChange(item, false)}
           >
             {item.header}
           </button>
         ))}
       </div>
-      <ToastContainer />
     </div>
   );
 };

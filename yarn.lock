@@ -1536,6 +1536,11 @@ react-hooks-paginator@^0.5.1:
   resolved "https://registry.yarnpkg.com/react-hooks-paginator/-/react-hooks-paginator-0.5.1.tgz#334f197bc788dfb17d41903db44bdbdc9dbb1545"
   integrity sha512-rI9Cv6kowjI6gDq/EexF5L7D2rpHDe5SRtMwdW5EP9UASatqO/L9tZOBS2Azqd9yC714MJ+GSwNEYxeO1geP5g==
 
+react-icons@^4.10.1:
+  version "4.10.1"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.10.1.tgz#3f3b5eec1f63c1796f6a26174a1091ca6437a500"
+  integrity sha512-/ngzDP/77tlCfqthiiGNZeYFACw85fUjZtLbedmJ5DTlNDIwETxhwBzdOJ21zj4iJdvc0J3y7yOsX3PpxAJzrw==
+
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
