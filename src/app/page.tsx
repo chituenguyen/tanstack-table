@@ -15,6 +15,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useQueryClient } from "react-query";
 import Position from "./components/Position";
 import position from "./const/Position";
+import TypeEQ from "./components/TypeEQ";
 
 interface InitialData {
   data: Array<{
@@ -209,6 +210,7 @@ const IndexPage = () => {
         {group === "Detailed" ? (
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)}>
+              <TypeEQ/>
               <Position/>
               <Tab
                 tabs={groupType}
