@@ -13,6 +13,8 @@ import groupType from "./const/groupTypeDetail";
 import Tab from "./components/Tab";
 import { FormProvider, useForm } from "react-hook-form";
 import { useQueryClient } from "react-query";
+import Position from "./components/Position";
+import position from "./const/Position";
 
 interface InitialData {
   data: Array<{
@@ -29,12 +31,14 @@ const IndexPage = () => {
   const [accumulation, setAccumulation] = useState(Acumalation[0].value);
   const [showAccumulationOptions, setShowAccumulationOptions] = useState(false);
   const selectedColumns = columns.find((column) => column.name === group)!.data;
+  const [filter, setFilter] = useState("")
   const [fields, setFields] = useState<String>(
     selectedColumns.map((item: any) => item.accessorKey).join(",")
   );
   const [initialData, setInitialData] = useState<InitialData>({
     data: columns[columns.length - 1].data, // Your initial data here
   });
+  const [initialDataPosition, setInitialDataPosition] = useState(position)
 
   const methods = useForm();
   const queryClient = useQueryClient();
@@ -57,7 +61,7 @@ const IndexPage = () => {
     data: apiResponseDetail,
     isLoading: loadingDetail,
     error: errorDetail,
-  } = useTournamentStatisticsDetail(page, fields);
+  } = useTournamentStatisticsDetail(page, fields, filter);
   if (error) {
     return <div>Error</div>;
   }
@@ -97,8 +101,11 @@ const IndexPage = () => {
   const [columnDetail, setColumnDetail] = useState(initialData)
 
   const onSubmit = (data: any) => {
-    const selected = Object.keys(data).filter((key) => data[key] !== false);
+    console.log(data)
+    const selected = Object.keys(data).filter((key) => data[key] == true || Array.isArray(data[key]));
+    const positionSelected = Object.keys(data).filter((key) => data[key] == "position");
     setFields(selected.join(","));
+    setFilter("position.in."+positionSelected.join("~"))
     setColumnDetail(initialData)
     // Call the refetch function to trigger data refetch
     queryClient.refetchQueries("tournamentStatisticsDetail");
@@ -202,6 +209,7 @@ const IndexPage = () => {
         {group === "Detailed" ? (
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(onSubmit)}>
+              <Position/>
               <Tab
                 tabs={groupType}
                 initialData={initialData}

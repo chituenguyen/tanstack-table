@@ -5,17 +5,24 @@ import { useFormContext } from "react-hook-form";
 interface CheckboxInputProps {
   label: string;
   name: string;
-  initialData?: any; // Assuming `initialData` is of type `InitialData`
+  initialData?: any; 
+  initialDataPosition?: any;
   onChange?: (checked: boolean) => void;
 }
 
-const CheckboxInput: React.FC<CheckboxInputProps> = ({ label, name, initialData, onChange }) => {
-  const {
-    register,
-  } = useFormContext();
+const CheckboxInput: React.FC<CheckboxInputProps> = ({
+  label,
+  name,
+  initialData,
+  initialDataPosition,
+  onChange,
+}) => {
+  const { register } = useFormContext();
 
   // Find the corresponding item in initialData based on accessorKey
-  const item = initialData.data.find((dataItem:any) => dataItem.accessorKey === name);
+  const item =
+    initialData?.data.find((dataItem: any) => dataItem.accessorKey === name) ||
+    initialDataPosition?.find((item: any) => item.name === name);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = e.target.checked;
     if (onChange) {
@@ -28,7 +35,7 @@ const CheckboxInput: React.FC<CheckboxInputProps> = ({ label, name, initialData,
       <input
         type="checkbox"
         {...register(name)}
-        checked={item?true:false} 
+        checked={item ? true : false}
         onChange={handleChange}
       />
       {label}

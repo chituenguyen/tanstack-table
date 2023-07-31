@@ -32,7 +32,6 @@ const Tab: React.FC<TabProps> = ({ tabs, initialData,onInitialDataChange }) => {
     setActiveTab((prevActiveTab) => (prevActiveTab === tabId ? null : tabId));
   };
   const handleCheckboxChange = (item:any, isChecked: boolean) => {
-    console.log(item, isChecked)
     if (isChecked) {
       const newData = {
         data: [...initialData.data, item],
