@@ -113,7 +113,6 @@ const IndexPage = () => {
   const [columnDetail, setColumnDetail] = useState(initialData);
 
   const onSubmit = (data: any) => {
-    console.log(data);
     const selected = Object.keys(data).filter(
       (key) => data[key] == true || Array.isArray(data[key])
     );
