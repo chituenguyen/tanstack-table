@@ -22,25 +22,30 @@ interface InitialData {
 
 interface TabProps {
   tabs: TabItem[];
-  initialData: InitialData,
+  initialData: InitialData;
   onInitialDataChange: (newData: InitialData) => void;
 }
 
-const Tab: React.FC<TabProps> = ({ tabs, initialData,onInitialDataChange }) => {
+const Tab: React.FC<TabProps> = ({
+  tabs,
+  initialData,
+  onInitialDataChange,
+}) => {
   const [activeTab, setActiveTab] = useState<number | null>(null);
   const handleTabChange = (tabId: number) => {
     setActiveTab((prevActiveTab) => (prevActiveTab === tabId ? null : tabId));
   };
-  const handleCheckboxChange = (item:any, isChecked: boolean) => {
+  const handleCheckboxChange = (item: any, isChecked: boolean) => {
     if (isChecked) {
       const newData = {
         data: [...initialData.data, item],
       };
       onInitialDataChange(newData);
-    }
-    else{
+    } else {
       const newData = {
-        data: initialData.data.filter((i) => i.accessorKey !== item.accessorKey),
+        data: initialData.data.filter(
+          (i) => i.accessorKey !== item.accessorKey
+        ),
       };
       onInitialDataChange(newData);
     }
@@ -70,9 +75,12 @@ const Tab: React.FC<TabProps> = ({ tabs, initialData,onInitialDataChange }) => {
             } overflow-hidden`}
           >
             {tab.data.map((item) => (
-              <CheckboxInput label={item.header} name={item.accessorKey} initialData={initialData} onChange={(isChecked) =>
-                handleCheckboxChange(item, isChecked)
-              }/>
+              <CheckboxInput
+                label={item.header}
+                name={item.accessorKey}
+                initialData={initialData}
+                onChange={(isChecked) => handleCheckboxChange(item, isChecked)}
+              />
             ))}
           </div>
         ))}

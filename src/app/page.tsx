@@ -19,6 +19,8 @@ import Accmulation from "./components/Accumulation/Accmulation";
 import PreferredFoot from "./components/PreferredFoot/PreferredFoot";
 import Appearances from "./components/Appearances/Appearances";
 import Age from "./components/Age/Age";
+import Team from "./components/Team/Team";
+import Nationality from "./components/Nationality/Nationality";
 
 interface InitialData {
   data: Array<{
@@ -124,6 +126,8 @@ const IndexPage = () => {
     const appearValue = data["appearValue"];
     const age = data["age"];
     const ageValue = data["ageValue"];
+    const team = data["team"];
+    const nationality = data["nationality"];
     const filterValue =
       (typeEQSelected.length > 0 ? "type.EQ." + typeEQSelected + "," : "") +
       (preferredFoot.length > 0
@@ -133,6 +137,10 @@ const IndexPage = () => {
         ? `appearances.${appearances}.${appearValue},`
         : "") +
       (age.length > 0 ? `age.${appearances}.${appearValue},` : "") +
+      (team?.length > 0 ? `team.in.${team.join("~")},` : "") +
+      (nationality?.length > 0
+        ? `nationality.in.${nationality.join("~")},`
+        : "") +
       "position.in." +
       positionSelected.join("~");
     setFields(selected.join(","));
@@ -240,7 +248,10 @@ const IndexPage = () => {
         )}
         {group === "Detailed" ? (
           <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(onSubmit)} className="text-xsm">
+            <form
+              onSubmit={methods.handleSubmit(onSubmit)}
+              className="text-xsm"
+            >
               <div className="flex justify-between">
                 <TypeEQ />
                 <Appearances />
@@ -250,6 +261,10 @@ const IndexPage = () => {
                 <Age />
                 <Position />
                 <PreferredFoot />
+              </div>
+              <div className="flex justify-between">
+                <Nationality />
+                <Team />
               </div>
               <Tab
                 tabs={groupType}

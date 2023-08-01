@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useFormContext, Controller } from "react-hook-form";
 
-export default function ({ options,name }) {
+export default function ({ options, name }) {
   const { control } = useFormContext();
   const [showOptions, setShowOptions] = useState(false);
 
