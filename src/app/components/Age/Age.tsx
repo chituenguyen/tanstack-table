@@ -9,7 +9,7 @@ const Appearances = [
 
 export default function () {
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 items-center">
       Age
       <ButtonInput options={Appearances} name="age" value="ageValue" />
     </div>

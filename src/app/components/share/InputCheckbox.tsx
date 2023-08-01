@@ -49,8 +49,8 @@ const OptionButton: React.FC<Props> = ({ options, name, label }) => {
   }, [checkboxes, options, setValue]);
 
   return (
-    <div>
-      <div>
+    <div className="w-full">
+      <div className="">
         <p>{label}</p>
         <div>
           <label>

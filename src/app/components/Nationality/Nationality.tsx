@@ -15,10 +15,10 @@ export default function () {
 
   return (
     <div>
-      <div className="flex">
+      <div className="flex items-center gap-2">
         <p>Nationality</p>
-        <div className="flex">
-          <label>
+        <div className="flex items-center gap-2">
+          <label className="flex items-center gap-1">
             <input
               type="radio"
               name="nationalityoption"
@@ -27,7 +27,7 @@ export default function () {
             />
             All
           </label>
-          <label>
+          <label className="flex items-center gap-1">
             <input
               type="radio"
               name="nationalityoption"

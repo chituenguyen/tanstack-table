@@ -32,7 +32,7 @@ interface InitialData {
 const IndexPage = () => {
   const [page, setPage] = useState(1);
   const [sorted, setSorted] = useState("-goals");
-  const [group, setGroup] = useState("Detailed");
+  const [group, setGroup] = useState("Summary");
   const [minApps, setMinApps] = useState(minAppOptions[0].value);
   const [accumulation, setAccumulation] = useState(Acumalation[0].value);
   const [accumulationDetail, setAccumulationDetail] = useState(
@@ -153,11 +153,11 @@ const IndexPage = () => {
 
   return (
     <div className="p-6  containerPage font-beVietNam">
-      <div className="w-[889px] py-4 flex flex-col gap-3.5 shadow-custom rounded-2xl min-h-[700px]">
-        <h1 className="text-basic text-sm font-bold not-italic uppercase">
+      <div className="w-[889px] py-4 px-2 flex flex-col gap-3.5 shadow-custom rounded-2xl min-h-[700px]">
+        <h1 className="text-basic text-xsm font-bold not-italic text-center">
           Player Statistics
         </h1>
-        <div className="flex items-center pb-3.5 border-b birder-[#cdded]">
+        <div className="flex items-center pb-3.5 border-b birder-[#cdded] gap-2">
           {columns.map((item) => (
             <button
               key={item.id}
@@ -250,7 +250,7 @@ const IndexPage = () => {
           <FormProvider {...methods}>
             <form
               onSubmit={methods.handleSubmit(onSubmit)}
-              className="text-xsm"
+              className="text-xs flex flex-col gap-2"
             >
               <div className="flex justify-between">
                 <TypeEQ />
@@ -271,7 +271,9 @@ const IndexPage = () => {
                 initialData={initialData}
                 onInitialDataChange={handleInitialDataChange}
               />
-              <button type="submit">Apply</button>
+              <div>
+              <button type="submit" className="px-4 py-2 text-xsm uppercase bg-[#374df5] text-white">Apply</button>
+              </div>
             </form>
           </FormProvider>
         ) : null}
@@ -285,7 +287,7 @@ const IndexPage = () => {
             {/* table  */}
             <table className="">
               <thead>
-                <tr className="bg1">
+                <tr className="bg-surface-1">
                   {group === "Detailed"
                     ? columnDetail.data.map((column, id) => (
                         <th
@@ -365,7 +367,7 @@ const IndexPage = () => {
                           <tr
                             key={id}
                             className={`text-center ${
-                              id % 2 === 1 ? "bg1" : ""
+                              id % 2 === 1 ? "bg-surface-1" : ""
                             }`}
                           >
                             {columnDetail.data.map((column) => {
@@ -386,9 +388,18 @@ const IndexPage = () => {
                                       : ""
                                   } ${
                                     column.accessorKey === "rating"
-                                      ? "text-rega-blue !font-bold"
+                                      ? cellData >= 9
+                                        ? "text-[#3498DB]"
+                                        : cellData >= 8
+                                        ? "text-[#47C152]"
+                                        : cellData >= 7
+                                        ? "text-[#A2B719]"
+                                        : cellData >= 6
+                                        ? "text-[#D8B62A]"
+                                        : "text-[#FA5151]"
                                       : ""
-                                  } text-basic text-xs font-normal py-2 leading-smc border-b border-[#CDDDED] `}
+                                  }
+                               text-basic text-xs font-normal py-2 leading-smc border-b border-[#CDDDED] `}
                                 >
                                   {column.accessorKey === "player.id"
                                     ? id + 1
@@ -404,7 +415,9 @@ const IndexPage = () => {
                       return (
                         <tr
                           key={id}
-                          className={`text-center ${id % 2 === 1 ? "bg1" : ""}`}
+                          className={`text-center ${
+                            id % 2 === 1 ? "bg-surface-1" : ""
+                          }`}
                         >
                           {selectedColumns.map((column) => {
                             const accessorKeys = column.accessorKey.split("."); // Split the accessorKey by '.' to access nested properties
@@ -423,7 +436,15 @@ const IndexPage = () => {
                                     : ""
                                 } ${
                                   column.accessorKey === "rating"
-                                    ? "text-rega-blue !font-bold"
+                                    ? cellData >= 9
+                                      ? "text-[#3498DB]"
+                                      : cellData >= 8
+                                      ? "text-[#47C152]"
+                                      : cellData >= 7
+                                      ? "text-[#A2B719]"
+                                      : cellData >= 6
+                                      ? "text-[#D8B62A]"
+                                      : "text-[#FA5151]"
                                     : ""
                                 } text-basic text-xs font-normal py-2 leading-smc border-b border-[#CDDDED] `}
                               >
