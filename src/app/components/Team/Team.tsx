@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import InputCheckbox from "../share/InputCheckbox";
-import Team from "../../const/team";
+import Team from "../../const/Team";
 import { useFormContext } from "react-hook-form";
 
 export default function () {
