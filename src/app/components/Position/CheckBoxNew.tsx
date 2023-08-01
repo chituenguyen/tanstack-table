@@ -1,6 +1,18 @@
 import { useFormContext } from "react-hook-form";
 
-const CheckboxInputNew = ({ label, name, defaultChecked, value }) => {
+type CheckboxInputProps = {
+  label: string;
+  name: string;
+  defaultChecked: boolean;
+  value: string;
+};
+
+const CheckboxInputNew: React.FC<CheckboxInputProps> = ({
+  label,
+  name,
+  defaultChecked,
+  value,
+}) => {
   const { register } = useFormContext();
 
   return (

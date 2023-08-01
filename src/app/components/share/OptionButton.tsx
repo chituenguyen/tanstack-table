@@ -1,7 +1,16 @@
+import { type } from "os";
 import { useState } from "react";
 import { useFormContext, Controller } from "react-hook-form";
 
-export default function ({ options, name }) {
+type Option = {
+  label: string;
+  value: string;
+};
+type OptionButtonProps = {
+  options: Option[];
+  name: string;
+};
+export default function OptionButton({ options, name }: OptionButtonProps) {
   const { control } = useFormContext();
   const [showOptions, setShowOptions] = useState(false);
 

@@ -1,7 +1,17 @@
 import { useState } from "react";
 import { useFormContext, Controller, useWatch } from "react-hook-form";
 
-export default function ({ options, name, value }) {
+type Option = {
+  label: string;
+  value: string;
+};
+type Props = {
+  options: Option[];
+  name: string;
+  value: string;
+}
+
+const ButtonInput: React.FC<Props> = ({options,name,value})=>{
   const { control, register } = useFormContext();
   const [showOptions, setShowOptions] = useState(false);
   const appearances = useWatch({ name: name });
@@ -44,3 +54,5 @@ export default function ({ options, name, value }) {
     </div>
   );
 }
+
+export default ButtonInput;
