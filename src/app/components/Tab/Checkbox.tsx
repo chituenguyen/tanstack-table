@@ -5,7 +5,7 @@ import { useFormContext } from "react-hook-form";
 interface CheckboxInputProps {
   label: string;
   name: string;
-  initialData?: any; 
+  initialData?: any;
   initialDataPosition?: any;
   onChange?: (checked: boolean) => void;
 }

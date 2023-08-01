@@ -10,12 +10,15 @@ import Acumalation from "./const/Acumulation";
 import minAppOptions from "./const/minApp";
 import { Box, CircularProgress, PaginationItem } from "@mui/material";
 import groupType from "./const/groupTypeDetail";
-import Tab from "./components/Tab";
+import Tab from "./components/Tab/Tab";
 import { FormProvider, useForm } from "react-hook-form";
 import { useQueryClient } from "react-query";
-import Position from "./components/Position";
-import position from "./const/Position";
-import TypeEQ from "./components/TypeEQ";
+import Position from "./components/Position/Position";
+import TypeEQ from "./components/TypeEQ/TypeEQ";
+import Accmulation from "./components/Accumulation/Accmulation";
+import PreferredFoot from "./components/PreferredFoot/PreferredFoot";
+import Appearances from "./components/Appearances/Appearances";
+import Age from "./components/Age/Age";
 
 interface InitialData {
   data: Array<{
@@ -30,18 +33,24 @@ const IndexPage = () => {
   const [group, setGroup] = useState("Detailed");
   const [minApps, setMinApps] = useState(minAppOptions[0].value);
   const [accumulation, setAccumulation] = useState(Acumalation[0].value);
+  const [accumulationDetail, setAccumulationDetail] = useState(
+    Acumalation[0].value
+  );
   const [showAccumulationOptions, setShowAccumulationOptions] = useState(false);
   const selectedColumns = columns.find((column) => column.name === group)!.data;
-  const [filter, setFilter] = useState("")
+  const [filter, setFilter] = useState("");
   const [fields, setFields] = useState<String>(
     selectedColumns.map((item: any) => item.accessorKey).join(",")
   );
   const [initialData, setInitialData] = useState<InitialData>({
     data: columns[columns.length - 1].data, // Your initial data here
   });
-  const [initialDataPosition, setInitialDataPosition] = useState(position)
 
-  const methods = useForm();
+  const methods = useForm({
+    defaultValues: {
+      typeEQ: "",
+    },
+  });
   const queryClient = useQueryClient();
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     event.preventDefault();
@@ -62,7 +71,7 @@ const IndexPage = () => {
     data: apiResponseDetail,
     isLoading: loadingDetail,
     error: errorDetail,
-  } = useTournamentStatisticsDetail(page, fields, filter);
+  } = useTournamentStatisticsDetail(page, fields, filter, accumulationDetail);
   if (error) {
     return <div>Error</div>;
   }
@@ -99,15 +108,37 @@ const IndexPage = () => {
   const handleInitialDataChange = (newData: InitialData) => {
     setInitialData(newData);
   };
-  const [columnDetail, setColumnDetail] = useState(initialData)
+  const [columnDetail, setColumnDetail] = useState(initialData);
 
   const onSubmit = (data: any) => {
-    console.log(data)
-    const selected = Object.keys(data).filter((key) => data[key] == true || Array.isArray(data[key]));
-    const positionSelected = Object.keys(data).filter((key) => data[key] == "position");
+    console.log(data);
+    const selected = Object.keys(data).filter(
+      (key) => data[key] == true || Array.isArray(data[key])
+    );
+    const positionSelected = Object.keys(data).filter(
+      (key) => data[key] == "position"
+    );
+    const typeEQSelected = data["typeEQ"];
+    const preferredFoot = data["preferredFoot"];
+    const appearances = data["appearances"];
+    const appearValue = data["appearValue"];
+    const age = data["age"];
+    const ageValue = data["ageValue"];
+    const filterValue =
+      (typeEQSelected.length > 0 ? "type.EQ." + typeEQSelected + "," : "") +
+      (preferredFoot.length > 0
+        ? "preferredFoot.EQ." + preferredFoot + ","
+        : "") +
+      (appearances.length > 0
+        ? `appearances.${appearances}.${appearValue},`
+        : "") +
+      (age.length > 0 ? `age.${appearances}.${appearValue},` : "") +
+      "position.in." +
+      positionSelected.join("~");
     setFields(selected.join(","));
-    setFilter("position.in."+positionSelected.join("~"))
-    setColumnDetail(initialData)
+    setFilter(filterValue);
+    setColumnDetail(initialData);
+    setAccumulationDetail(data["accumulation"]);
     // Call the refetch function to trigger data refetch
     queryClient.refetchQueries("tournamentStatisticsDetail");
   };
@@ -209,9 +240,17 @@ const IndexPage = () => {
         )}
         {group === "Detailed" ? (
           <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(onSubmit)}>
-              <TypeEQ/>
-              <Position/>
+            <form onSubmit={methods.handleSubmit(onSubmit)} className="text-xsm">
+              <div className="flex justify-between">
+                <TypeEQ />
+                <Appearances />
+                <Accmulation />
+              </div>
+              <div className="flex justify-between">
+                <Age />
+                <Position />
+                <PreferredFoot />
+              </div>
               <Tab
                 tabs={groupType}
                 initialData={initialData}
