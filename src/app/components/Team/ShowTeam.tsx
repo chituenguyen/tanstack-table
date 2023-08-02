@@ -9,7 +9,7 @@ function ShowTeam(teams: any) {
 
   return (
     <div className={`${openTeam ? "block" : "hidden"}`}>
-      <InputCheckbox options={teams} name="team" label="Team" />
+      <InputCheckbox options={teams.teams} name="team" label="Team" />
     </div>
   );
 }

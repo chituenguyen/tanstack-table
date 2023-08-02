@@ -40,7 +40,7 @@ interface InitialData {
 const IndexPage = () => {
   const [page, setPage] = useState(1);
   const [sorted, setSorted] = useState("-goals");
-  const [group, setGroup] = useState("Summary");
+  const [group, setGroup] = useState("Detailed");
   const [minApps, setMinApps] = useState(minAppOptions[0].value);
   const [accumulation, setAccumulation] = useState(Acumalation[0].value);
   const [accumulationDetail, setAccumulationDetail] = useState(
