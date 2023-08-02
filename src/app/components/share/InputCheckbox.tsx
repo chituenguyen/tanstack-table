@@ -14,7 +14,6 @@ type Props = {
 };
 
 const OptionButton: React.FC<Props> = ({ options, name, label }) => {
-  console.log(options)
   const { setValue } = useFormContext();
   const [selectAll, setSelectAll] = useState(false);
   const [checkboxes, setCheckboxes] = useState<string[]>([]);

@@ -9,7 +9,13 @@ import Stack from "@mui/material/Stack";
 import columns from "./const/Group";
 import Acumalation from "./const/Acumulation";
 import minAppOptions from "./const/minApp";
-import { Box, CircularProgress, PaginationItem } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  FormControl,
+  MenuItem,
+  PaginationItem,
+} from "@mui/material";
 import groupType from "./const/groupTypeDetail";
 import Tab from "./components/Tab/Tab";
 import { FormProvider, useForm } from "react-hook-form";
@@ -24,11 +30,10 @@ import Team from "./components/Team/Team";
 import Nationality from "./components/Nationality/Nationality";
 import HeaderRow from "./components/HeaderTable/HeaderTable";
 import TableRow from "./components/TableRow/TableRow";
-import ArrowDown from "./components/Icon/ArrowDown";
-import ArrowUp from "./components/Icon/ArrowUp";
 import ShowTeam from "./components/Team/ShowTeam";
 import { OpenTeamProvider } from "./hooks/useOpenTeamAndNation";
 import ShowNationality from "./components/Nationality/ShowNationality";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 interface InitialData {
   data: Array<{
@@ -97,9 +102,8 @@ const IndexPage = () => {
       }
     });
   };
-  const handleChangeAccumulator = (value: string) => {
-    setAccumulation(value);
-    setShowAccumulationOptions(false);
+  const handleChangeAccumulator = (event: SelectChangeEvent) => {
+    setAccumulation(event.target.value as string);
     setPage(1);
   };
   const handleChangeMinApps = (value: string) => {
@@ -133,13 +137,13 @@ const IndexPage = () => {
     );
     const filterValue =
       (typeEQSelected.length > 0 ? "type.EQ." + typeEQSelected + "," : "") +
-      (preferredFoot.length > 0
+      (preferredFoot.length > 1
         ? "preferredFoot.EQ." + preferredFoot + ","
         : "") +
-      (appearances.length > 0
+      (appearances.length > 1
         ? `appearances.${appearances}.${appearValue},`
         : "") +
-      (age.length > 0 ? `age.${age}.${ageValue},` : "") +
+      (age.length > 1 ? `age.${age}.${ageValue},` : "") +
       (team?.length > 0 ? `team.in.${team.join("~")},` : "") +
       (nationality?.length > 0
         ? `nationality.in.${nationality.join("~")},`
@@ -192,33 +196,20 @@ const IndexPage = () => {
             {/* accumulation */}
             <div className="flex items-center text-xsm font-normal leading-4 gap-3.5 relative">
               <p>Accumulation</p>
-              <button
-                className="flex items-center w-[200px] justify-between border border-solid px-[10px] py-2"
-                onClick={() =>
-                  setShowAccumulationOptions(!showAccumulationOptions)
-                }
-              >
-                {Acumalation.find((item) => item.value === accumulation)?.label}{" "}
-                {!showAccumulationOptions ? <ArrowDown /> : <ArrowUp />}
-              </button>
-              <ul
-                className={`absolute right-0 w-[200px] top-[110%] bg-white z-10 ${
-                  showAccumulationOptions ? "block" : "hidden"
-                } py-2 rounded-md`}
-              >
-                {Acumalation.map((item) => (
-                  <li
-                    className={`p-2 ${
-                      accumulation === item.value
-                        ? "text-rega-blue bg-surface-1"
-                        : ""
-                    } hover:cursor-pointer`}
-                    onClick={() => handleChangeAccumulator(item.value)}
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={accumulation}
+                    onChange={handleChangeAccumulator}
                   >
-                    {item.label}
-                  </li>
-                ))}
-              </ul>
+                    {Acumalation.map((item) => (
+                      <MenuItem value={item.value}>{item.label}</MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Box>
             </div>
           </div>
         )}
@@ -248,7 +239,9 @@ const IndexPage = () => {
                     <></>
                   ) : (
                     <>
-                      <ShowNationality nation={apiTeamAndNation?.data.nationalities}/>
+                      <ShowNationality
+                        nation={apiTeamAndNation?.data.nationalities}
+                      />
                       <ShowTeam teams={apiTeamAndNation?.data.teams} />
                     </>
                   )}

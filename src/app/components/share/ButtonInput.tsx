@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { useFormContext, Controller, useWatch } from "react-hook-form";
+import Box from "@mui/material/Box";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 type Option = {
   label: string;
@@ -9,11 +13,16 @@ type Props = {
   options: Option[];
   name: string;
   value: string;
-}
+};
 
-const ButtonInput: React.FC<Props> = ({options,name,value})=>{
+const ButtonInput: React.FC<Props> = ({ options, name, value }) => {
   const { control, register } = useFormContext();
-  const [showOptions, setShowOptions] = useState(false);
+  const [age, setAge] = useState(options[0].value); // Use the initial value
+
+  const handleChange = (event: SelectChangeEvent) => {
+    const selectedValue = event.target.value as string;
+    setAge(selectedValue); // Keep the local state up to date (optional, if you want to display the selected label in the UI)
+  };
   const appearances = useWatch({ name: name });
   return (
     <div>
@@ -23,7 +32,7 @@ const ButtonInput: React.FC<Props> = ({options,name,value})=>{
         defaultValue={options[0].value}
         render={({ field }) => (
           <div className="flex gap-2 relative">
-            <button type="button" onClick={() => setShowOptions(!showOptions)}>
+            {/* <button type="button" onClick={() => setShowOptions(!showOptions)}>
               {options.find((option) => option.value === field.value)?.label}
             </button>
             {showOptions && (
@@ -41,7 +50,26 @@ const ButtonInput: React.FC<Props> = ({options,name,value})=>{
                   </button>
                 ))}
               </div>
-            )}
+            )} */}
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
+                <Select
+                  labelId={`demo-simple-select-label+${name}`}
+                  id={`demo-simple-select+${name}`}
+                  value={age}
+                  onChange={(e) => {
+                    handleChange(e);
+                    field.onChange(e.target.value); // Update the value in the Controller's field
+                  }}
+                >
+                  {options.map((item) => (
+                    <MenuItem key={item.value} value={item.value}>
+                      {item.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
             <input
               type="text"
               {...register(value)}
@@ -53,6 +81,6 @@ const ButtonInput: React.FC<Props> = ({options,name,value})=>{
       />
     </div>
   );
-}
+};
 
 export default ButtonInput;

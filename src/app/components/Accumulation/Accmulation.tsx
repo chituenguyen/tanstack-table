@@ -3,7 +3,7 @@ import OptionButton from "../share/OptionButton";
 export default function () {
   const Appearances = [
     {
-      label: "All",
+      label: "Total",
       value: "total",
     },
     {

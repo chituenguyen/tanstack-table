@@ -1,17 +1,28 @@
 import { useState } from "react";
 import { useFormContext, Controller } from "react-hook-form";
+import Box from "@mui/material/Box";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 type Option = {
   label: string;
   value: string;
 };
+
 type OptionButtonProps = {
   options: Option[];
   name: string;
 };
+
 export default function OptionButton({ options, name }: OptionButtonProps) {
   const { control } = useFormContext();
-  const [showOptions, setShowOptions] = useState(false);
+  const [age, setAge] = useState(options[0].value); // Use the initial value
+
+  const handleChange = (event: SelectChangeEvent) => {
+    const selectedValue = event.target.value as string;
+    setAge(selectedValue); // Keep the local state up to date (optional, if you want to display the selected label in the UI)
+  };
 
   return (
     <div>
@@ -20,27 +31,25 @@ export default function OptionButton({ options, name }: OptionButtonProps) {
         control={control}
         defaultValue={options[0].value}
         render={({ field }) => (
-          <div className="relative">
-            <button type="button" onClick={() => setShowOptions(!showOptions)}>
-              {options.find((option) => option.value === field.value)?.label}
-            </button>
-            {showOptions && (
-              <div className="bg-red-50 absolute flex flex-col">
-                {options.map((option) => (
-                  <button
-                    key={option.value}
-                    type="button"
-                    onClick={() => {
-                      field.onChange(option.value);
-                      setShowOptions(false);
-                    }}
-                  >
-                    {option.label}
-                  </button>
+          <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth>
+              <Select
+                labelId={`demo-simple-select-label+${name}`}
+                id={`demo-simple-select+${name}`}
+                value={age}
+                onChange={(e) => {
+                  handleChange(e);
+                  field.onChange(e.target.value); // Update the value in the Controller's field
+                }}
+              >
+                {options.map((item) => (
+                  <MenuItem key={item.value} value={item.value}>
+                    {item.label}
+                  </MenuItem>
                 ))}
-              </div>
-            )}
-          </div>
+              </Select>
+            </FormControl>
+          </Box>
         )}
       />
     </div>

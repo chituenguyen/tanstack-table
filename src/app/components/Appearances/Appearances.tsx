@@ -1,7 +1,7 @@
 import ButtonInput from "../share/ButtonInput";
 
 const Appearances = [
-  { label: "All", value: "" },
+  { label: "All", value: "a" },
   { label: "More than", value: "GT" },
   { label: "Equal", value: "EQ" },
   { label: "Less than", value: "LT" },

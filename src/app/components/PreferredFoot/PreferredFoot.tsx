@@ -4,7 +4,7 @@ export default function () {
   const PreferredFoot = [
     {
       label: "All",
-      value: "",
+      value: "a",
     },
     {
       label: "Both",
