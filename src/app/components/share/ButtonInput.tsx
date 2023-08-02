@@ -32,25 +32,6 @@ const ButtonInput: React.FC<Props> = ({ options, name, value }) => {
         defaultValue={options[0].value}
         render={({ field }) => (
           <div className="flex gap-2 relative">
-            {/* <button type="button" onClick={() => setShowOptions(!showOptions)}>
-              {options.find((option) => option.value === field.value)?.label}
-            </button>
-            {showOptions && (
-              <div className="bg-red-50 absolute">
-                {options.map((option) => (
-                  <button
-                    key={option.value}
-                    type="button"
-                    onClick={() => {
-                      field.onChange(option.value);
-                      setShowOptions(false);
-                    }}
-                  >
-                    {option.label}
-                  </button>
-                ))}
-              </div>
-            )} */}
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
                 <Select
@@ -61,9 +42,10 @@ const ButtonInput: React.FC<Props> = ({ options, name, value }) => {
                     handleChange(e);
                     field.onChange(e.target.value); // Update the value in the Controller's field
                   }}
+                  sx={{fontSize:12, height:30}}
                 >
                   {options.map((item) => (
-                    <MenuItem key={item.value} value={item.value}>
+                    <MenuItem key={item.value} value={item.value} sx={{fontSize:12}}>
                       {item.label}
                     </MenuItem>
                   ))}
@@ -73,8 +55,8 @@ const ButtonInput: React.FC<Props> = ({ options, name, value }) => {
             <input
               type="text"
               {...register(value)}
-              className="border w-[42px]"
-              disabled={appearances === "" || appearances === undefined}
+              className="border w-[70px] px-2"
+              disabled={appearances === "a" || appearances === undefined}
             />
           </div>
         )}

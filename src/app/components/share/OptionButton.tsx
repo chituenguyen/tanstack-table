@@ -41,9 +41,10 @@ export default function OptionButton({ options, name }: OptionButtonProps) {
                   handleChange(e);
                   field.onChange(e.target.value); // Update the value in the Controller's field
                 }}
+                sx={{fontSize:12, height:30}}
               >
                 {options.map((item) => (
-                  <MenuItem key={item.value} value={item.value}>
+                  <MenuItem key={item.value} value={item.value} sx={{fontSize:"12px"}}>
                     {item.label}
                   </MenuItem>
                 ))}

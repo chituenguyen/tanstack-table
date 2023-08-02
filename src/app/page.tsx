@@ -196,16 +196,17 @@ const IndexPage = () => {
             {/* accumulation */}
             <div className="flex items-center text-xsm font-normal leading-4 gap-3.5 relative">
               <p>Accumulation</p>
-              <Box sx={{ minWidth: 120 }}>
+              <Box sx={{ minWidth: 100, fontSize:"12px", }}>
                 <FormControl fullWidth>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={accumulation}
                     onChange={handleChangeAccumulator}
+                    sx={{fontSize:"12px", height:30}}
                   >
                     {Acumalation.map((item) => (
-                      <MenuItem value={item.value}>{item.label}</MenuItem>
+                      <MenuItem value={item.value} sx={{fontSize:"12px"}}>{item.label}</MenuItem>
                     ))}
                   </Select>
                 </FormControl>
