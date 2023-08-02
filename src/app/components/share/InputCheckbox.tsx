@@ -4,8 +4,9 @@ import { useFormContext } from "react-hook-form";
 import CheckboxInputNew from "../Position/CheckBoxNew";
 
 type Option = {
-  label: string;
-  value: string;
+  name: string;
+  id: number;
+  [key: string]: any; // Allow any other additional properties
 };
 
 type Props = {
@@ -21,18 +22,18 @@ const OptionButton: React.FC<Props> = ({ options, name, label }) => {
 
   const handleSelectAll = () => {
     setSelectAll(true);
-    setCheckboxes(options.map((item) => item.value));
-    options.map((item)=>{
-      setValue(item.value,name)
-    })
+    setCheckboxes(options.map((item) => item.id.toString()));
+    options.map((item) => {
+      setValue(item.id.toString(), name);
+    });
   };
 
   const handleDeselectAll = () => {
     setSelectAll(false);
     setCheckboxes([]);
-    options.map((item)=>{
-      setValue(item.value,false)
-    })
+    options.map((item) => {
+      setValue(item.id.toString(), false);
+    });
   };
 
   const handleCheckboxChange = (value: string, checked: boolean) => {
@@ -60,7 +61,7 @@ const OptionButton: React.FC<Props> = ({ options, name, label }) => {
 
   return (
     <div className="w-full">
-      <div className="">
+      <div className="flex justify-between">
         <p>{label}</p>
         <div>
           <label>
@@ -81,13 +82,13 @@ const OptionButton: React.FC<Props> = ({ options, name, label }) => {
           </label>
         </div>
       </div>
-      <div>
+      <div className="grid grid-cols-4">
         {options.map((item) => (
           <CheckboxInputNew
             key={item.value}
-            label={item.label}
-            name={item.value}
-            defaultChecked={checkboxes.includes(item.value)}
+            label={item.name}
+            name={(item.id).toString()}
+            defaultChecked={checkboxes.includes((item.id).toString())}
             value={name}
             onChange={handleCheckboxChange}
           />

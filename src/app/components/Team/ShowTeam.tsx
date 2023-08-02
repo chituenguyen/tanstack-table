@@ -4,12 +4,12 @@ import InputCheckbox from "../share/InputCheckbox";
 import Team from "../../const/Team";
 import { useOpenTeam } from "../../hooks/useOpenTeamAndNation";
 
-function ShowTeam() {
+function ShowTeam({teams}) {
   const { openTeam } = useOpenTeam();
 
   return (
     <div className={`${openTeam ? "block" : "hidden"}`}>
-      <InputCheckbox options={Team} name="team" label="Team" />
+      <InputCheckbox options={teams} name="team" label="Team" />
     </div>
   );
 }

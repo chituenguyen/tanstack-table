@@ -3,6 +3,7 @@ import React, { useState } from "react";
 
 import useTournamentStatistics from "./hooks/useFetch";
 import useTournamentStatisticsDetail from "./hooks/useFetchDetail";
+import useTeamAndNation from "./hooks/useFetchTeamAndNation";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import columns from "./const/Group";
@@ -23,7 +24,6 @@ import Team from "./components/Team/Team";
 import Nationality from "./components/Nationality/Nationality";
 import HeaderRow from "./components/HeaderTable/HeaderTable";
 import TableRow from "./components/TableRow/TableRow";
-import Arrow from "./components/Icon/ArrowDown";
 import ArrowDown from "./components/Icon/ArrowDown";
 import ArrowUp from "./components/Icon/ArrowUp";
 import ShowTeam from "./components/Team/ShowTeam";
@@ -40,7 +40,7 @@ interface InitialData {
 const IndexPage = () => {
   const [page, setPage] = useState(1);
   const [sorted, setSorted] = useState("-goals");
-  const [group, setGroup] = useState("Detailed");
+  const [group, setGroup] = useState("Summary");
   const [minApps, setMinApps] = useState(minAppOptions[0].value);
   const [accumulation, setAccumulation] = useState(Acumalation[0].value);
   const [accumulationDetail, setAccumulationDetail] = useState(
@@ -67,25 +67,17 @@ const IndexPage = () => {
     event.preventDefault();
     setPage(value);
   };
-  const {
-    data: apiResponse,
-    isLoading,
-    error,
-  } = useTournamentStatistics(
+  const { data: apiResponse, isLoading } = useTournamentStatistics(
     page,
     sorted,
     group.toLowerCase(),
     minApps,
     accumulation
   ); // Use the custom hook
-  const {
-    data: apiResponseDetail,
-    isLoading: loadingDetail,
-    error: errorDetail,
-  } = useTournamentStatisticsDetail(page, fields, filter, accumulationDetail);
-  if (error) {
-    return <div>Error</div>;
-  }
+  const { data: apiResponseDetail, isLoading: loadingDetail } =
+    useTournamentStatisticsDetail(page, fields, filter, accumulationDetail);
+  const { data: apiTeamAndNation, isLoading: loadingTeamAnndNation } =
+    useTeamAndNation();
   const handleColumnClick = (header: string) => {
     if (sorted === "-" + header) {
       setSorted(header);
@@ -252,9 +244,14 @@ const IndexPage = () => {
                     <Nationality />
                     <Team />
                   </div>
-                  <ShowNationality/>
-                  <ShowTeam />
-                  
+                  {loadingTeamAnndNation ? (
+                    <></>
+                  ) : (
+                    <>
+                      <ShowNationality nation={apiTeamAndNation?.data.nationalities}/>
+                      <ShowTeam teams={apiTeamAndNation?.data.teams} />
+                    </>
+                  )}
                 </div>
               </OpenTeamProvider>
               <Tab
