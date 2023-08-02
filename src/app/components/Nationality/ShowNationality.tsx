@@ -3,7 +3,7 @@ import React from "react";
 import InputCheckbox from "../share/InputCheckbox";
 import { useOpenTeam } from "../../hooks/useOpenTeamAndNation";
 
-function ShowNationality({nation}) {
+function ShowNationality(nation:any) {
   const { openNation } = useOpenTeam();
   const Nationality = Object.entries(nation).map(([id, name]) => ({
     name,

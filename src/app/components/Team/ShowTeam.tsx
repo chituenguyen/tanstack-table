@@ -4,7 +4,7 @@ import InputCheckbox from "../share/InputCheckbox";
 import Team from "../../const/Team";
 import { useOpenTeam } from "../../hooks/useOpenTeamAndNation";
 
-function ShowTeam({teams}) {
+function ShowTeam(teams: any) {
   const { openTeam } = useOpenTeam();
 
   return (

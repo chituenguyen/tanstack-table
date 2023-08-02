@@ -4,8 +4,6 @@ import { useFormContext } from "react-hook-form";
 import CheckboxInputNew from "../Position/CheckBoxNew";
 
 type Option = {
-  name: string;
-  id: number;
   [key: string]: any; // Allow any other additional properties
 };
 
