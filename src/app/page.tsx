@@ -22,7 +22,13 @@ import Age from "./components/Age/Age";
 import Team from "./components/Team/Team";
 import Nationality from "./components/Nationality/Nationality";
 import HeaderRow from "./components/HeaderTable/HeaderTable";
-import TableRow from "./components/BodyTable/BodyTable";
+import TableRow from "./components/TableRow/TableRow";
+import Arrow from "./components/Icon/ArrowDown";
+import ArrowDown from "./components/Icon/ArrowDown";
+import ArrowUp from "./components/Icon/ArrowUp";
+import ShowTeam from "./components/Team/ShowTeam";
+import { OpenTeamProvider } from "./hooks/useOpenTeamAndNation";
+import ShowNationality from "./components/Nationality/ShowNationality";
 
 interface InitialData {
   data: Array<{
@@ -201,34 +207,7 @@ const IndexPage = () => {
                 }
               >
                 {Acumalation.find((item) => item.value === accumulation)?.label}{" "}
-                {!showAccumulationOptions ? (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="8"
-                    height="5"
-                    viewBox="0 0 8 5"
-                    fill="none"
-                  >
-                    <path
-                      d="M7.525 0L8 0.546875L4 5L0 0.546875L0.475 0L4 3.90625L7.525 0Z"
-                      fill="#01B243"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="8"
-                    height="5"
-                    viewBox="0 0 8 5"
-                    fill="none"
-                    className="rotate-180"
-                  >
-                    <path
-                      d="M7.525 0L8 0.546875L4 5L0 0.546875L0.475 0L4 3.90625L7.525 0Z"
-                      fill="#01B243"
-                    />
-                  </svg>
-                )}
+                {!showAccumulationOptions ? <ArrowDown /> : <ArrowUp />}
               </button>
               <ul
                 className={`absolute right-0 w-[200px] top-[110%] bg-white z-10 ${
@@ -267,10 +246,17 @@ const IndexPage = () => {
                 <Position />
                 <PreferredFoot />
               </div>
-              <div className="flex justify-between">
-                <Nationality />
-                <Team />
-              </div>
+              <OpenTeamProvider>
+                <div>
+                  <div className="flex justify-between">
+                    <Nationality />
+                    <Team />
+                  </div>
+                  <ShowNationality/>
+                  <ShowTeam />
+                  
+                </div>
+              </OpenTeamProvider>
               <Tab
                 tabs={groupType}
                 initialData={initialData}
@@ -315,7 +301,11 @@ const IndexPage = () => {
                       )
                     )
                   : apiResponse?.data.results.map((row: any, id: number) => (
-                      <TableRow index={id} row={row} columns={selectedColumns} />
+                      <TableRow
+                        index={id}
+                        row={row}
+                        columns={selectedColumns}
+                      />
                     ))}
               </tbody>
             </table>

@@ -1,17 +1,9 @@
-import { useState, useEffect } from "react";
-import InputCheckbox from "../share/InputCheckbox";
-import Team from "../../const/Team";
-import { useFormContext } from "react-hook-form";
+// Team.jsx
+import React from "react";
+import { useOpenTeam } from "../../hooks/useOpenTeamAndNation";
 
-export default function () {
-  const [open, setOpen] = useState(false);
-  const { setValue } = useFormContext();
-
-  useEffect(() => {
-    if (open) {
-      setValue("team", "");
-    }
-  });
+function Team() {
+  const { openTeam, updateValueTeam } = useOpenTeam();
 
   return (
     <div>
@@ -22,8 +14,8 @@ export default function () {
             <input
               type="radio"
               name="teamoption"
-              onClick={() => setOpen(false)}
-              checked={!open}
+              onClick={() => updateValueTeam(false)}
+              checked={!openTeam}
             />
             All
           </label>
@@ -31,15 +23,16 @@ export default function () {
             <input
               type="radio"
               name="teamoption"
-              onClick={() => setOpen(true)}
-              checked={open}
+              onClick={() => updateValueTeam(true)}
+              checked={openTeam}
             />
             Choose
           </label>
         </div>
       </div>
 
-      {open && <InputCheckbox options={Team} name="team" label="Team" />}
     </div>
   );
 }
+
+export default Team;
