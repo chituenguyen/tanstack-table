@@ -1,5 +1,7 @@
+// OptionButton.tsx
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
+import CheckboxInputNew from "../Position/CheckBoxNew";
 
 type Option = {
   label: string;
@@ -20,20 +22,29 @@ const OptionButton: React.FC<Props> = ({ options, name, label }) => {
   const handleSelectAll = () => {
     setSelectAll(true);
     setCheckboxes(options.map((item) => item.value));
+    // setValue(name, options.map((item) => item.value)); // Update the form value
+    options.map((item)=>{
+      setValue(item.value,name)
+    })
   };
 
   const handleDeselectAll = () => {
     setSelectAll(false);
     setCheckboxes([]);
+    options.map((item)=>{
+      setValue(item.value,false)
+    })
   };
 
-  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const checkboxValue = event.target.value;
-    if (checkboxes.includes(checkboxValue)) {
-      setCheckboxes(checkboxes.filter((value) => value !== checkboxValue));
+  const handleCheckboxChange = (value: string, checked: boolean) => {
+    if (checked) {
+      setCheckboxes([...checkboxes, value]);
     } else {
-      setCheckboxes([...checkboxes, checkboxValue]);
+      const newCheckboxes = checkboxes.filter((item) => item !== value);
+      setCheckboxes(newCheckboxes);
     }
+
+    setValue(name, checkboxes); // Update the form value
   };
 
   // Check if all individual checkboxes are selected
@@ -46,7 +57,7 @@ const OptionButton: React.FC<Props> = ({ options, name, label }) => {
 
     // Update the value of the "selectedOptions" field
     setValue(name, checkboxes);
-  }, [checkboxes, options, setValue]);
+  }, [checkboxes, options, setValue, name]);
 
   return (
     <div className="w-full">
@@ -73,15 +84,14 @@ const OptionButton: React.FC<Props> = ({ options, name, label }) => {
       </div>
       <div>
         {options.map((item) => (
-          <label key={item.value}>
-            <input
-              type="checkbox"
-              value={item.value}
-              onChange={handleCheckboxChange}
-              checked={checkboxes.includes(item.value)}
-            />
-            {item.label}
-          </label>
+          <CheckboxInputNew
+            key={item.value}
+            label={item.label}
+            name={item.value}
+            defaultChecked={checkboxes.includes(item.value)}
+            value={name}
+            onChange={handleCheckboxChange}
+          />
         ))}
       </div>
     </div>

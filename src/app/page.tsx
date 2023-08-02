@@ -32,7 +32,7 @@ interface InitialData {
 const IndexPage = () => {
   const [page, setPage] = useState(1);
   const [sorted, setSorted] = useState("-goals");
-  const [group, setGroup] = useState("Summary");
+  const [group, setGroup] = useState("Detailed");
   const [minApps, setMinApps] = useState(minAppOptions[0].value);
   const [accumulation, setAccumulation] = useState(Acumalation[0].value);
   const [accumulationDetail, setAccumulationDetail] = useState(
@@ -52,6 +52,7 @@ const IndexPage = () => {
     defaultValues: {
       typeEQ: "",
     },
+    shouldUnregister: false, 
   });
   const queryClient = useQueryClient();
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -113,6 +114,7 @@ const IndexPage = () => {
   const [columnDetail, setColumnDetail] = useState(initialData);
 
   const onSubmit = (data: any) => {
+    console.log(data)
     const selected = Object.keys(data).filter(
       (key) => data[key] == true || Array.isArray(data[key])
     );
@@ -125,8 +127,12 @@ const IndexPage = () => {
     const appearValue = data["appearValue"];
     const age = data["age"];
     const ageValue = data["ageValue"];
-    const team = data["team"];
-    const nationality = data["nationality"];
+    const team = Object.keys(data).filter(
+      (key) => data[key] == "team"
+    );
+    const nationality = Object.keys(data).filter(
+      (key) => data[key] == "nationality"
+    );
     const filterValue =
       (typeEQSelected.length > 0 ? "type.EQ." + typeEQSelected + "," : "") +
       (preferredFoot.length > 0
@@ -135,7 +141,7 @@ const IndexPage = () => {
       (appearances.length > 0
         ? `appearances.${appearances}.${appearValue},`
         : "") +
-      (age.length > 0 ? `age.${appearances}.${appearValue},` : "") +
+      (age.length > 0 ? `age.${age}.${ageValue},` : "") +
       (team?.length > 0 ? `team.in.${team.join("~")},` : "") +
       (nationality?.length > 0
         ? `nationality.in.${nationality.join("~")},`
