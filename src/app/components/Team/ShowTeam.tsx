@@ -8,7 +8,7 @@ function ShowTeam(teams: any) {
   const { openTeam } = useOpenTeam();
 
   return (
-    <div className={`${openTeam ? "block" : "hidden"}`}>
+    <div className={`${openTeam ? "block" : "hidden"} mt-2 bg-surface-1 p-3 rounded-lg`}>
       <InputCheckbox options={teams.teams} name="team" label="Team" />
     </div>
   );

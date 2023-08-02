@@ -61,8 +61,8 @@ const OptionButton: React.FC<Props> = ({ options, name, label }) => {
     <div className="w-full">
       <div className="flex justify-between">
         <p>{label}</p>
-        <div>
-          <label>
+        <div className="flex items-center gap-3">
+          <label className="flex items-center gap-1">
             <input
               type="checkbox"
               onChange={handleSelectAll}
@@ -70,7 +70,7 @@ const OptionButton: React.FC<Props> = ({ options, name, label }) => {
             />
             Select all
           </label>
-          <label>
+          <label className="flex items-center gap-1">
             <input
               type="checkbox"
               onChange={handleDeselectAll}
@@ -80,7 +80,7 @@ const OptionButton: React.FC<Props> = ({ options, name, label }) => {
           </label>
         </div>
       </div>
-      <div className="grid grid-cols-4">
+      <div className="grid grid-cols-4 mt-2">
         {options.map((item) => (
           <CheckboxInputNew
             key={item.value}

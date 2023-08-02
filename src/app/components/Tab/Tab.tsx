@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import CheckboxInput from "./Checkbox";
+import { toast } from "react-toastify";
 
 interface TabItem {
   id: number;
@@ -35,12 +36,17 @@ const Tab: React.FC<TabProps> = ({
   const handleTabChange = (tabId: number) => {
     setActiveTab((prevActiveTab) => (prevActiveTab === tabId ? null : tabId));
   };
+  const notify = () => toast("Maxium number of filter fields already selected!");
   const handleCheckboxChange = (item: any, isChecked: boolean) => {
     if (isChecked) {
-      const newData = {
-        data: [...initialData.data, item],
-      };
-      onInitialDataChange(newData);
+      if (initialData.data.length >= 8) {
+        notify()
+      } else {
+        const newData = {
+          data: [...initialData.data, item],
+        };
+        onInitialDataChange(newData);
+      }
     } else {
       const newData = {
         data: initialData.data.filter(
@@ -51,7 +57,7 @@ const Tab: React.FC<TabProps> = ({
     }
   };
   return (
-    <div className="bg-surface-1">
+    <div className="bg-surface-1 p-3">
       <div className="flex gap-3">
         {tabs.map((tab) => (
           <button

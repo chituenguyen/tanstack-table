@@ -23,7 +23,7 @@ const CheckboxInputNew: React.FC<CheckboxInputProps> = ({
   }
   return (
     <div>
-      <label className="flex items-center">
+      <label className="flex items-center gap-1">
         <input
           type="checkbox"
           defaultChecked={defaultChecked}

@@ -9,7 +9,7 @@ function Team() {
     <div>
       <div className="flex items-center gap-2">
         <p>Team</p>
-        <div className="flex">
+        <div className="flex items-center gap-2">
           <label className="flex items-center gap-1">
             <input
               type="radio"

@@ -10,7 +10,7 @@ function ShowNationality(nation:any) {
     id,
   }));
   return (
-    <div className={`${openNation ? "block" : "hidden"}`}>
+    <div className={`${openNation ? "block" : "hidden"} mt-2 bg-surface-1 p-3 rounded-lg`}>
       <InputCheckbox options={Nationality} name="nationality" label="Nationality" />
     </div>
   );

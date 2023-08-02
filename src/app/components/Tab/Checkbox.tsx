@@ -31,7 +31,7 @@ const CheckboxInput: React.FC<CheckboxInputProps> = ({
   };
 
   return (
-    <label>
+    <label className="flex items-center gap-1">
       <input
         type="checkbox"
         {...register(name)}

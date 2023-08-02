@@ -34,6 +34,8 @@ import ShowTeam from "./components/Team/ShowTeam";
 import { OpenTeamProvider } from "./hooks/useOpenTeamAndNation";
 import ShowNationality from "./components/Nationality/ShowNationality";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface InitialData {
   data: Array<{
@@ -45,7 +47,7 @@ interface InitialData {
 const IndexPage = () => {
   const [page, setPage] = useState(1);
   const [sorted, setSorted] = useState("-goals");
-  const [group, setGroup] = useState("Summary");
+  const [group, setGroup] = useState("Detailed");
   const [minApps, setMinApps] = useState(minAppOptions[0].value);
   const [accumulation, setAccumulation] = useState(Acumalation[0].value);
   const [accumulationDetail, setAccumulationDetail] = useState(
@@ -196,17 +198,19 @@ const IndexPage = () => {
             {/* accumulation */}
             <div className="flex items-center text-xsm font-normal leading-4 gap-3.5 relative">
               <p>Accumulation</p>
-              <Box sx={{ minWidth: 100, fontSize:"12px", }}>
+              <Box sx={{ minWidth: 100, fontSize: "12px" }}>
                 <FormControl fullWidth>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={accumulation}
                     onChange={handleChangeAccumulator}
-                    sx={{fontSize:"12px", height:30}}
+                    sx={{ fontSize: "12px", height: 30 }}
                   >
                     {Acumalation.map((item) => (
-                      <MenuItem value={item.value} sx={{fontSize:"12px"}}>{item.label}</MenuItem>
+                      <MenuItem value={item.value} sx={{ fontSize: "12px" }}>
+                        {item.label}
+                      </MenuItem>
                     ))}
                   </Select>
                 </FormControl>
@@ -218,7 +222,7 @@ const IndexPage = () => {
           <FormProvider {...methods}>
             <form
               onSubmit={methods.handleSubmit(onSubmit)}
-              className="text-xs flex flex-col gap-2"
+              className="text-xs flex flex-col gap-4"
             >
               <div className="flex justify-between">
                 <TypeEQ />
@@ -326,6 +330,18 @@ const IndexPage = () => {
           </>
         )}
       </div>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };
