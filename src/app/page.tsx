@@ -21,6 +21,8 @@ import Appearances from "./components/Appearances/Appearances";
 import Age from "./components/Age/Age";
 import Team from "./components/Team/Team";
 import Nationality from "./components/Nationality/Nationality";
+import HeaderRow from "./components/HeaderTable/HeaderTable";
+import TableRow from "./components/BodyTable/BodyTable";
 
 interface InitialData {
   data: Array<{
@@ -52,7 +54,7 @@ const IndexPage = () => {
     defaultValues: {
       typeEQ: "",
     },
-    shouldUnregister: false, 
+    shouldUnregister: false,
   });
   const queryClient = useQueryClient();
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -114,7 +116,7 @@ const IndexPage = () => {
   const [columnDetail, setColumnDetail] = useState(initialData);
 
   const onSubmit = (data: any) => {
-    console.log(data)
+    console.log(data);
     const selected = Object.keys(data).filter(
       (key) => data[key] == true || Array.isArray(data[key])
     );
@@ -127,9 +129,7 @@ const IndexPage = () => {
     const appearValue = data["appearValue"];
     const age = data["age"];
     const ageValue = data["ageValue"];
-    const team = Object.keys(data).filter(
-      (key) => data[key] == "team"
-    );
+    const team = Object.keys(data).filter((key) => data[key] == "team");
     const nationality = Object.keys(data).filter(
       (key) => data[key] == "nationality"
     );
@@ -277,7 +277,12 @@ const IndexPage = () => {
                 onInitialDataChange={handleInitialDataChange}
               />
               <div>
-              <button type="submit" className="px-4 py-2 text-xsm uppercase bg-[#374df5] text-white">Apply</button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 text-xsm uppercase bg-[#374df5] text-white"
+                >
+                  Apply
+                </button>
               </div>
             </form>
           </FormProvider>
@@ -291,177 +296,27 @@ const IndexPage = () => {
           <>
             {/* table  */}
             <table className="">
-              <thead>
-                <tr className="bg-surface-1">
-                  {group === "Detailed"
-                    ? columnDetail.data.map((column, id) => (
-                        <th
-                          key={id}
-                          className={`text-basic text-xs font-bold not-italic leading-4 px-4 py-2 border-y bofder-[#CDDDED]  ${
-                            id == 1 ? "text-start px-0" : ""
-                          }
-        sorted:true
-                      `}
-                        >
-                          <p
-                            className={`flex ${
-                              column.accessorKey === "player.name"
-                                ? ""
-                                : "items-center"
-                            } flex-col`}
-                          >
-                            <p>{column.header}</p>
-                          </p>
-                        </th>
-                      ))
-                    : selectedColumns.map((column, id) => (
-                        <th
-                          key={id}
-                          className={`text-basic text-xs font-bold not-italic leading-4 px-4 py-2 border-y bofder-[#CDDDED]  ${
-                            id == 1 ? "text-start px-0" : ""
-                          }
-        sorted:true
-                      ${
-                        column.sorted ? "hover:cursor-pointer" : "cursor-auto"
-                      }`}
-                          onClick={() => handleColumnClick(column.accessorKey)} // Pass the column header to the click handler
-                        >
-                          <p
-                            className={`flex ${
-                              column.accessorKey === "player.name"
-                                ? ""
-                                : "items-center"
-                            } flex-col`}
-                          >
-                            <p>{column.header}</p>
-                            {column.sorted ? (
-                              <svg
-                                width="16"
-                                height="16"
-                                viewBox="0 0 16 16"
-                                className={`${
-                                  column.accessorKey === sorted
-                                    ? "rotate-180"
-                                    : ""
-                                }`}
-                              >
-                                <path
-                                  fill={`${
-                                    column.accessorKey === sorted ||
-                                    "-" + column.accessorKey === sorted
-                                      ? "#2187E5"
-                                      : ""
-                                  }`}
-                                  d="M13 5H3l5 8z"
-                                  fill-rule="evenodd"
-                                ></path>
-                              </svg>
-                            ) : (
-                              ""
-                            )}
-                          </p>
-                        </th>
-                      ))}
-                </tr>
-              </thead>
+              <HeaderRow
+                group={group}
+                columnDetail={columnDetail}
+                selectedColumns={selectedColumns}
+                sorted={sorted}
+                handleColumnClick={handleColumnClick}
+              />
               <tbody>
                 {group === "Detailed"
                   ? apiResponseDetail?.data.results.map(
-                      (row: any, id: number) => {
-                        return (
-                          <tr
-                            key={id}
-                            className={`text-center ${
-                              id % 2 === 1 ? "bg-surface-1" : ""
-                            }`}
-                          >
-                            {columnDetail.data.map((column) => {
-                              const accessorKeys =
-                                column.accessorKey.split("."); // Split the accessorKey by '.' to access nested properties
-                              let cellData = row;
-                              accessorKeys.forEach((key) => {
-                                if (cellData) {
-                                  cellData = cellData[key];
-                                }
-                              });
-                              return (
-                                <td
-                                  key={column.accessorKey}
-                                  className={`${
-                                    column.accessorKey === "player.name"
-                                      ? "text-start"
-                                      : ""
-                                  } ${
-                                    column.accessorKey === "rating"
-                                      ? cellData >= 9
-                                        ? "text-[#3498DB]"
-                                        : cellData >= 8
-                                        ? "text-[#47C152]"
-                                        : cellData >= 7
-                                        ? "text-[#A2B719]"
-                                        : cellData >= 6
-                                        ? "text-[#D8B62A]"
-                                        : "text-[#FA5151]"
-                                      : ""
-                                  }
-                               text-basic text-xs font-normal py-2 leading-smc border-b border-[#CDDDED] `}
-                                >
-                                  {column.accessorKey === "player.id"
-                                    ? id + 1
-                                    : cellData}
-                                </td>
-                              );
-                            })}
-                          </tr>
-                        );
-                      }
+                      (row: any, id: number) => (
+                        <TableRow
+                          index={id}
+                          row={row}
+                          columns={columnDetail.data}
+                        />
+                      )
                     )
-                  : apiResponse?.data.results.map((row: any, id: number) => {
-                      return (
-                        <tr
-                          key={id}
-                          className={`text-center ${
-                            id % 2 === 1 ? "bg-surface-1" : ""
-                          }`}
-                        >
-                          {selectedColumns.map((column) => {
-                            const accessorKeys = column.accessorKey.split("."); // Split the accessorKey by '.' to access nested properties
-                            let cellData = row;
-                            accessorKeys.forEach((key) => {
-                              if (cellData) {
-                                cellData = cellData[key];
-                              }
-                            });
-                            return (
-                              <td
-                                key={column.accessorKey}
-                                className={`${
-                                  column.accessorKey === "player.name"
-                                    ? "text-start"
-                                    : ""
-                                } ${
-                                  column.accessorKey === "rating"
-                                    ? cellData >= 9
-                                      ? "text-[#3498DB]"
-                                      : cellData >= 8
-                                      ? "text-[#47C152]"
-                                      : cellData >= 7
-                                      ? "text-[#A2B719]"
-                                      : cellData >= 6
-                                      ? "text-[#D8B62A]"
-                                      : "text-[#FA5151]"
-                                    : ""
-                                } text-basic text-xs font-normal py-2 leading-smc border-b border-[#CDDDED] `}
-                              >
-                                {column.accessorKey === "player.id"
-                                  ? id + 1
-                                  : cellData}
-                              </td>
-                            );
-                          })}
-                        </tr>
-                      );
-                    })}
+                  : apiResponse?.data.results.map((row: any, id: number) => (
+                      <TableRow index={id} row={row} columns={selectedColumns} />
+                    ))}
               </tbody>
             </table>
             {/* pagination  */}

@@ -22,7 +22,6 @@ const OptionButton: React.FC<Props> = ({ options, name, label }) => {
   const handleSelectAll = () => {
     setSelectAll(true);
     setCheckboxes(options.map((item) => item.value));
-    // setValue(name, options.map((item) => item.value)); // Update the form value
     options.map((item)=>{
       setValue(item.value,name)
     })
