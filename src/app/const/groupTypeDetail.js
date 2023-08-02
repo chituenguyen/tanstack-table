@@ -25,7 +25,7 @@ const groupType = [
       },
       {
         header: "successful dribbles %",
-        accessorKey: "successfulDribblesPercent",
+        accessorKey: "successfulDribblesPercentage",
         sorted: true,
       },
       {
@@ -35,32 +35,32 @@ const groupType = [
       },
       {
         header: "Shot on target",
-        accessorKey: "shotOnTarget",
+        accessorKey: "shotsOnTarget",
         sorted: true,
       },
       {
         header: "Shot off target",
-        accessorKey: "shotOffTarget",
+        accessorKey: "shotsOffTarget",
         sorted: true,
       },
       {
         header: "Blocked shots",
-        accessorKey: "blockShots",
+        accessorKey: "blockedShots",
         sorted: true,
       },
       {
-        header: "Goal conversion",
-        accessorKey: "goalConvension",
+        header: "Goal conversion %",
+        accessorKey: "goalConversionPercentage",
         sorted: true,
       },
       {
         header: "Penaties taken",
-        accessorKey: "penatiesTaken",
+        accessorKey: "penaltiesTaken",
         sorted: true,
       },
       {
         header: "Penaty goals",
-        accessorKey: "penatyGoals",
+        accessorKey: "penaltyGoals",
         sorted: true,
       },
       {
@@ -75,22 +75,22 @@ const groupType = [
       },
       {
         header: "Free kick goals",
-        accessorKey: "freeKickGoals",
+        accessorKey: "freeKickGoal",
         sorted: true,
       },
       {
         header: "Goals from inside the box",
-        accessorKey: "goalFromInsideBox",
+        accessorKey: "goalsFromInsideTheBox",
         sorted: true,
       },
       {
         header: "Goals from outside the box",
-        accessorKey: "goalFromOutsideBox",
+        accessorKey: "goalsFromOutsideTheBox",
         sorted: true,
       },
       {
         header: "Headed goals",
-        accessorKey: "headGoal",
+        accessorKey: "headedGoals",
         sorted: true,
       },
       {
@@ -100,22 +100,22 @@ const groupType = [
       },
       {
         header: "Right foot goals",
-        accessorKey: "rightFootGoal",
+        accessorKey: "rightFootGoals",
         sorted: true,
       },
       {
         header: "Hit woodwork",
-        accessorKey: "hitWoodWork",
+        accessorKey: "hitWoodwork",
         sorted: true,
       },
       {
         header: "Offsides",
-        accessorKey: "offSides",
+        accessorKey: "offsides",
         sorted: true,
       },
       {
         header: "Penaties conversion",
-        accessorKey: "penatiesConvesion",
+        accessorKey: "penaltyConversion",
         sorted: true,
       },
       {
@@ -146,7 +146,7 @@ const groupType = [
       },
       {
         header: "Penalty committed",
-        accessorKey: "penaltyCommitted",
+        accessorKey: "penaltyConceded",
         sorted: true,
       },
       {
@@ -165,11 +165,6 @@ const groupType = [
         sorted: true,
       },
       {
-        header: "Shot on target",
-        accessorKey: "shotOnTarget",
-        sorted: true,
-      },
-      {
         header: "Own goals",
         accessorKey: "ownGoals",
         sorted: true,
@@ -182,11 +177,6 @@ const groupType = [
       {
         header: "Clean sheets",
         accessorKey: "cleanSheet",
-        sorted: true,
-      },
-      {
-        header: "Penaties taken",
-        accessorKey: "penatiesTaken",
         sorted: true,
       },
       {
@@ -217,7 +207,7 @@ const groupType = [
       },
       {
         header: "Inaccurate passes",
-        accessorKey: "inacuratePasses",
+        accessorKey: "inaccuratePasses",
         sorted: true,
       },
       {
@@ -232,7 +222,7 @@ const groupType = [
       },
       {
         header: "Accurate opposition half passes",
-        accessorKey: "accurateOppositeHalfPasses",
+        accessorKey: "accurateOppositionHalfPasses",
         sorted: true,
       },
       {
@@ -252,7 +242,7 @@ const groupType = [
       },
       {
         header: "Accurate crosses %",
-        accessorKey: "accurateCrossesPercent",
+        accessorKey: "accurateCrossesPercentage",
         sorted: true,
       },
       {
@@ -262,12 +252,12 @@ const groupType = [
       },
       {
         header: "Acc.long balls %",
-        accessorKey: "accurateLongBallsPercent",
+        accessorKey: "accurateLongBallsPercentage",
         sorted: true,
       },
       {
         header: "Passes to assist",
-        accessorKey: "passesToAssist",
+        accessorKey: "passToAssist",
         sorted: true,
       },
       {
@@ -293,32 +283,32 @@ const groupType = [
       },
       {
         header: "Penalties faced",
-        accessorKey: "penaltiesFaced",
+        accessorKey: "penaltyFaced",
         sorted: true,
       },
       {
         header: "Penalties saved",
-        accessorKey: "penaltiesSaved",
+        accessorKey: "penaltySave",
         sorted: true,
       },
       {
         header: "Saves from inside box",
-        accessorKey: "saveFromInsideBox",
+        accessorKey: "savedShotsFromInsideTheBox",
         sorted: true,
       },
       {
         header: "Saved shots from outside the box",
-        accessorKey: "savedFromOutsideBox",
+        accessorKey: "savedShotsFromOutsideTheBox",
         sorted: true,
       },
       {
         header: "Goals conceded inside the box",
-        accessorKey: "goalConcededInsideBox",
+        accessorKey: "goalsConcededInsideTheBox",
         sorted: true,
       },
       {
         header: "Goals conceded outside the box",
-        accessorKey: "goalConcededOutsideBox",
+        accessorKey: "goalsConcededOutsideTheBox",
         sorted: true,
       },
       {
@@ -333,7 +323,7 @@ const groupType = [
       },
       {
         header: "Successful runs out",
-        accessorKey: "succesfulRunOut",
+        accessorKey: "successfulRunsOut",
         sorted: true,
       },
       {
@@ -374,7 +364,7 @@ const groupType = [
       },
       {
         header: "Ground duels won %",
-        accessorKey: "groundDuelsWonPercent",
+        accessorKey: "groundDuelsWonPercentage",
         sorted: true,
       },
       {
@@ -384,17 +374,17 @@ const groupType = [
       },
       {
         header: "Aerial duels won %",
-        accessorKey: "aerialDuelsWonPercent",
+        accessorKey: "aerialDuelsWonPercentage",
         sorted: true,
       },
       {
         header: "Toal data won",
-        accessorKey: "totalDataWon",
+        accessorKey: "totalDuelsWon",
         sorted: true,
       },
       {
         header: "Toal data won %",
-        accessorKey: "totalDataPercent",
+        accessorKey: "totalDuelsWonPercentage",
         sorted: true,
       },
       {
@@ -414,7 +404,7 @@ const groupType = [
       },
       {
         header: "Disoissessed",
-        accessorKey: "disoissessed",
+        accessorKey: "dispossessed",
         sorted: true,
       },
       {
@@ -429,7 +419,7 @@ const groupType = [
       },
       {
         header: "Started",
-        accessorKey: "started",
+        accessorKey: "matchesStarted",
         sorted: true,
       },
       {

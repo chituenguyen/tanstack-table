@@ -53,7 +53,6 @@ const IndexPage = () => {
   const [accumulationDetail, setAccumulationDetail] = useState(
     Acumalation[0].value
   );
-  const [showAccumulationOptions, setShowAccumulationOptions] = useState(false);
   const selectedColumns = columns.find((column) => column.name === group)!.data;
   const [filter, setFilter] = useState("");
   const [fields, setFields] = useState<String>(
@@ -92,11 +91,9 @@ const IndexPage = () => {
       setSorted("-" + header);
     }
     setPage(1);
-    setShowAccumulationOptions(false);
   };
   const handleGroupClick = (name: string) => {
     setGroup(name);
-    setShowAccumulationOptions(false);
     setPage(1);
     columns.map((item) => {
       if (item.name === name) {
@@ -110,7 +107,6 @@ const IndexPage = () => {
   };
   const handleChangeMinApps = (value: string) => {
     setMinApps(value);
-    setShowAccumulationOptions(false);
     setPage(1);
   };
 
