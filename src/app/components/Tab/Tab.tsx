@@ -95,11 +95,14 @@ const Tab: React.FC<TabProps> = ({
         {initialData.data.slice(3).map((item, index) => (
           <button
             key={index}
-            className="button-check"
+            className="button-check flex gap-2 items-center justify-between"
             onClick={() => handleCheckboxChange(item, false)}
             type="button"
           >
             {item.header}
+            <button>
+              x
+            </button>
           </button>
         ))}
       </div>

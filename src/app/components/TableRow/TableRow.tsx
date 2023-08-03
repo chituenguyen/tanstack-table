@@ -43,14 +43,14 @@ const TableRow: React.FC<Props> = ({ index, row, columns }) => {
                   ? "text-[#D8B62A]"
                   : "text-[#FA5151]"
                 : ""
-            } text-basic text-xs font-normal py-2 leading-smc border-r border-[#CDDDED] ${column.accessorKey === "team.id"?"flex justify-center":""} ${column.header === "Team" ? "items-center":""}`}
+            } text-basic text-xs font-normal py-2 leading-smc border-r border-[#CDDDED] ${column.accessorKey === "team.id"?"flex justify-center":""} `}
           >
             {column.accessorKey === "player.id" && column.header === "ID" ? (
               index + 1
             ) : column.header === "Team" ? (
               <img
                 src={`https://apisf.p2pcdn.xyz/api/v1/team/${cellData}/image`}
-                className="w-4 h-4"
+                className="w-5 h-5"
                 alt="Team flag"
               ></img>
             ) : (
