@@ -1,53 +1,71 @@
 // Team.jsx
-import React from "react";
+import React, { useEffect } from "react";
 import { useOpen } from "../../hooks/useOpenTeamAndNation";
 import { useFormContext } from "react-hook-form";
 
-function Team() {
-  const { openTeam, updateValueTeam } = useOpen();
-  const methods = useFormContext()
+function Team({ clear }: { clear: boolean }) {
+  const { updateValueTeam } = useOpen();
+  const methods = useFormContext();
+  const {register} = useFormContext();
+
+  useEffect(() => {
+    if (methods.watch("teamoption") === "allteam") {
+      updateValueTeam(false);
+    }
+    if (methods.watch("teamoption") === "chooseteam") {
+      updateValueTeam(true);
+    }
+  }, [methods]);
 
   return (
     <div>
       <div className="flex items-center gap-2 hover:cursor-pointer">
         <p>Team</p>
         <div className="flex items-center gap-2">
-          <label className="flex items-center gap-1">
-            <input
-              type="radio"
-              id="allteam"
-              name="teamoption"
-              onChange={() =>{
-                updateValueTeam(false)
-                const value = methods.getValues()
-                const nationality = Object.keys(value).filter(
-                  (key) => value[key] == "team"
-                );
-                nationality.map((item)=>{
-                  methods.setValue(item,false);
-                })
-              }}
-              checked={!openTeam}
-              value={"all"}
-              className="hover:cursor-pointer"
-            />
-            All
-          </label>
-          <label className="flex items-center gap-1 hover:cursor-pointer">
-            <input
-              type="radio"
-              id="chooseteam"
-              name="teamoption"
-              onChange={() => updateValueTeam(true)}
-              checked={openTeam}
-              value={"choose"}
-              className="hover:cursor-pointer"
-            />
-            Choose
-          </label>
+        <label
+          className="flex items-center gap-1 hover:cursor-pointer"
+          htmlFor="allnation"
+        >
+          <input
+            type="radio"
+            id="allteam"
+            {...register("teamoption")}
+            onChange={() => {
+              const value = methods.getValues();
+              const nationality = Object.keys(value).filter(
+                (key) => value[key] === "team"
+              );
+              nationality.forEach((item) => {
+                methods.setValue(item, false);
+              });
+              methods.setValue("teamoption", "allteam");
+            }}
+            checked={methods.getValues("teamoption") === "allteam"}
+            value={"allteam"}
+            className="hover:cursor-pointer"
+          />
+          All
+        </label>
+
+        <label
+          className="flex items-center gap-1 hover:cursor-pointer"
+          htmlFor="chooseteam"
+        >
+          <input
+            type="radio"
+            id="chooseteam"
+            {...register("teamoption")}
+            onChange={() => {
+              methods.setValue("teamoption", "chooseteam");
+            }}
+            checked={methods.getValues("teamoption") === "chooseteam"}
+            value={"chooseteam"}
+            className="hover:cursor-pointer"
+          />
+          Choose
+        </label>
         </div>
       </div>
-
     </div>
   );
 }

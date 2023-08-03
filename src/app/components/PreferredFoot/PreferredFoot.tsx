@@ -1,6 +1,6 @@
 import OptionButton from "../share/OptionButton";
 
-export default function () {
+export default function ({clear}:{clear:boolean}) {
   const PreferredFoot = [
     {
       label: "All",
@@ -22,7 +22,7 @@ export default function () {
   return (
     <div className="flex items-center gap-2">
       Preferred foot
-      <OptionButton options={PreferredFoot} name="preferredFoot" />
+      <OptionButton options={PreferredFoot} name="preferredFoot" clear={clear} />
     </div>
   );
 }

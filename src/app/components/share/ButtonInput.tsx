@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormContext, Controller, useWatch } from "react-hook-form";
 import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
@@ -13,9 +13,10 @@ type Props = {
   options: Option[];
   name: string;
   value: string;
+  clear? : boolean;
 };
 
-const ButtonInput: React.FC<Props> = ({ options, name, value }) => {
+const ButtonInput: React.FC<Props> = ({ options, name, value, clear }) => {
   const { control, register } = useFormContext();
   const [age, setAge] = useState(options[0].value); // Use the initial value
 
@@ -23,6 +24,11 @@ const ButtonInput: React.FC<Props> = ({ options, name, value }) => {
     const selectedValue = event.target.value as string;
     setAge(selectedValue); // Keep the local state up to date (optional, if you want to display the selected label in the UI)
   };
+  useEffect(()=>{
+    if(clear){
+      setAge(options[0].value);
+    }
+  },[clear])
   const appearances = useWatch({ name: name });
   return (
     <div>

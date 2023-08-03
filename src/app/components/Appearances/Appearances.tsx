@@ -7,7 +7,8 @@ const Appearances = [
   { label: "Less than", value: "LT" },
 ];
 
-export default function () {
+export default function ({clear}:{clear:boolean}) {
+  // console.log(clear)
   return (
     <div className="flex items-center gap-2">
       Appearances
@@ -15,6 +16,7 @@ export default function () {
         options={Appearances}
         name="appearances"
         value="appearValue"
+        clear = {clear}
       />
     </div>
   );

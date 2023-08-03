@@ -10,6 +10,7 @@ export function useOpen() {
 export function OpenProvider({ children }) {
   const [openTeam, setOpenTeam] = useState(false);
   const [openNation, setopenNation] = useState(false);
+  // console.log(openNation)
 
   const updateValueTeam = (newValue) => {
     setOpenTeam(newValue);

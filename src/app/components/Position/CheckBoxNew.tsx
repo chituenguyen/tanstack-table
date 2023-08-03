@@ -7,6 +7,7 @@ type CheckboxInputProps = {
   value: string;
   onChange?: (value: string, checked: boolean) => void;
   flag?: string;
+  clear?:boolean
 };
 
 const CheckboxInputNew: React.FC<CheckboxInputProps> = ({
@@ -16,6 +17,7 @@ const CheckboxInputNew: React.FC<CheckboxInputProps> = ({
   value,
   onChange,
   flag,
+  clear
 }) => {
   const { register } = useFormContext();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

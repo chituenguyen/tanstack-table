@@ -1,6 +1,6 @@
 import OptionButton from "../share/OptionButton";
 
-export default function () {
+export default function ({clear}:{clear:boolean}) {
   const Appearances = [
     {
       label: "Total",
@@ -18,7 +18,7 @@ export default function () {
   return (
     <div className="flex items-center gap-2">
       Accumulation
-      <OptionButton options={Appearances} name="accumulation" />
+      <OptionButton options={Appearances} name="accumulation" clear={clear}/>
     </div>
   );
 }

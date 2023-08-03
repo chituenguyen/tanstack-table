@@ -7,11 +7,11 @@ const Appearances = [
   { label: "Less than", value: "LT" },
 ];
 
-export default function () {
+export default function ({clear}:{clear:boolean}) {
   return (
     <div className="flex gap-2 items-center">
       Age
-      <ButtonInput options={Appearances} name="age" value="ageValue" />
+      <ButtonInput options={Appearances} name="age" value="ageValue" clear={clear}/>
     </div>
   );
 }

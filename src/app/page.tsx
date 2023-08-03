@@ -61,10 +61,12 @@ const IndexPage = () => {
   const [initialData, setInitialData] = useState<InitialData>({
     data: columns[columns.length - 1].data, // Your initial data here
   });
-
+  const [clearFilter, setClearFilter] = useState(false);
   const methods = useForm({
     defaultValues: {
       typeEQ: "o",
+      nationalityoption: "allnation",
+      teamoption: "allteam",
     },
     shouldUnregister: false,
   });
@@ -95,8 +97,8 @@ const IndexPage = () => {
   const handleGroupClick = (name: string) => {
     setGroup(name);
     setPage(1);
-    setAccumulation(Acumalation[0].value)
-    setMinApps(minAppOptions[0].value)
+    setAccumulation(Acumalation[0].value);
+    setMinApps(minAppOptions[0].value);
     columns.map((item) => {
       if (item.name === name) {
         setSorted("-" + columns[item.id].data[3].accessorKey);
@@ -118,7 +120,8 @@ const IndexPage = () => {
   const [columnDetail, setColumnDetail] = useState(initialData);
 
   const onSubmit = (data: any) => {
-    // console.log(data)
+    console.log(data);
+    setClearFilter(false);
     const selected = Object.keys(data).filter(
       (key) => data[key] == true || Array.isArray(data[key])
     );
@@ -144,8 +147,10 @@ const IndexPage = () => {
         ? `appearances.${appearances}.${appearValue},`
         : "") +
       (age.length > 1 ? `age.${age}.${ageValue},` : "") +
-      (team?.length > 0 ? `team.in.${team.join("~")},` : "") +
-      (nationality?.length > 0
+      (team?.length > 0 && data["teamoption"] !== "allteam"
+        ? `team.in.${team.join("~")},`
+        : "") +
+      (nationality?.length > 0 && data["nationalityoption"] !== "allnation"
         ? `nationality.in.${nationality.join("~")},`
         : "") +
       "position.in." +
@@ -158,9 +163,11 @@ const IndexPage = () => {
     queryClient.refetchQueries("tournamentStatisticsDetail");
   };
 
-  const handleClearFilter = () =>{
-    console.log(methods.getValues())
-  }
+  const handleClearFilter = () => {
+    setClearFilter(true);
+    methods.reset();
+    // console.log(methods.getValues())
+  };
   return (
     <div className="p-6  containerPage font-beVietNam">
       <div className="w-[889px] py-4 px-2 flex flex-col gap-3.5 shadow-custom rounded-2xl min-h-[700px]">
@@ -234,19 +241,19 @@ const IndexPage = () => {
             >
               <div className="flex justify-between">
                 <TypeEQ />
-                <Appearances />
-                <Accmulation />
+                <Appearances clear={clearFilter} />
+                <Accmulation clear={clearFilter} />
               </div>
               <div className="flex justify-between">
-                <Age />
+                <Age clear={clearFilter} />
                 <Position />
-                <PreferredFoot />
+                <PreferredFoot clear={clearFilter} />
               </div>
               <OpenProvider>
                 <div>
                   <div className="flex justify-between">
-                    <Nationality />
-                    <Team />
+                    <Nationality clear={clearFilter} />
+                    <Team clear={clearFilter} />
                   </div>
                   {loadingTeamAnndNation ? (
                     <></>
@@ -275,7 +282,7 @@ const IndexPage = () => {
                 <button
                   type="button"
                   className="px-4 py-2 text-xsm uppercase bg-[#374df5] text-white"
-                  onClick={()=>handleClearFilter()}
+                  onClick={() => handleClearFilter()}
                 >
                   Clear filter
                 </button>
