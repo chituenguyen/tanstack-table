@@ -82,10 +82,10 @@ const IndexPage = () => {
     minApps,
     accumulation
   ); // Use the custom hook
-  const { data: apiResponseDetail, isLoading: loadingDetail } =
+  const { data: apiResponseDetail, isLoading: loadingDetail, refetch:refetchDetail } =
     useTournamentStatisticsDetail(page, fields, filter, accumulationDetail);
   const { data: apiTeamAndNation, isLoading: loadingTeamAnndNation } =
-    useTeamAndNation();
+    useTeamAndNation(); // customize hook
   const handleColumnClick = (header: string) => {
     if (sorted === "-" + header) {
       setSorted(header);
@@ -166,7 +166,9 @@ const IndexPage = () => {
   const handleClearFilter = () => {
     setClearFilter(true);
     methods.reset();
-    // console.log(methods.getValues())
+    setFilter("")
+    queryClient.refetchQueries("tournamentStatisticsDetail");
+
   };
   return (
     <div className="p-6  containerPage font-beVietNam">

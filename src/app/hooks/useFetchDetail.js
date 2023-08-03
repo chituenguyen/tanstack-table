@@ -23,6 +23,8 @@ const useTournamentStatisticsDetail = (page, fields, filter, accumulation) => {
     ],
     queryFn: () =>
       fetchTournamentStatistics(page, fields, filter, accumulation),
+    cacheTime: 15000,
+    staleTime: 10000,
   }); // Wrap the fetch call in a function
 };
 
