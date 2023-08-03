@@ -27,13 +27,14 @@ const CheckboxInputNew: React.FC<CheckboxInputProps> = ({
   };
   return (
     <div>
-      <label className="flex items-center gap-1">
+      <label className="flex items-center gap-1 hover:cursor-pointer">
         <input
           type="checkbox"
           defaultChecked={defaultChecked}
           {...register(name)}
           value={value}
           onChange={(e) => handleChange(e)}
+          className="hover:cursor-pointer"
         />
         {flag && flag === "team" ? (
           <img

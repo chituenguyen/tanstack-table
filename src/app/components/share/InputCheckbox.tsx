@@ -70,19 +70,21 @@ const OptionButton: React.FC<Props> = ({ options, name, label }) => {
       <div className="flex justify-between">
         <p>{label}</p>
         <div className="flex items-center gap-3">
-          <label className="flex items-center gap-1">
+          <label className="flex items-center gap-1 hover:cursor-pointer">
             <input
               type="checkbox"
               onChange={handleSelectAll}
               checked={selectAll && checkboxes.length === options.length}
+              className="hover:cursor-pointer"
             />
             Select all
           </label>
-          <label className="flex items-center gap-1">
+          <label className="flex items-center gap-1 hover:cursor-pointer">
             <input
               type="checkbox"
               onChange={handleDeselectAll}
               checked={!selectAll && checkboxes.length === 0}
+              className="hover:cursor-pointer"
             />
             Deselect all
           </label>

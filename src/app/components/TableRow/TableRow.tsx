@@ -43,7 +43,7 @@ const TableRow: React.FC<Props> = ({ index, row, columns }) => {
                   ? "text-[#D8B62A]"
                   : "text-[#FA5151]"
                 : ""
-            } text-basic text-xs font-normal py-2 leading-smc border-r border-[#CDDDED] ${column.accessorKey === "team.id"?"flex justify-center":""}`}
+            } text-basic text-xs font-normal py-2 leading-smc border-r border-[#CDDDED] ${column.accessorKey === "team.id"?"flex justify-center":""} ${column.header === "Team" ? "items-center":""}`}
           >
             {column.accessorKey === "player.id" && column.header === "ID" ? (
               index + 1

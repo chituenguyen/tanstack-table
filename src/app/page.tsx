@@ -192,10 +192,10 @@ const IndexPage = () => {
   return (
     <div className="p-6  containerPage font-beVietNam">
       <div className="w-[889px] py-4 px-2 flex flex-col gap-3.5 shadow-custom rounded-2xl min-h-[700px]">
-        <h1 className="text-basic text-xsm font-bold not-italic text-center">
+        <h1 className="text-basic text-base font-bold not-italic">
           Player Statistics
         </h1>
-        <div className="flex items-center pb-3.5 border-b birder-[#cdded] gap-2">
+        <div className="flex items-center pb-3.5 border-b border-[#cdded] gap-2">
           {columns.map((item) => (
             <button
               key={item.id}
@@ -296,13 +296,13 @@ const IndexPage = () => {
               <div className="flex gap-5">
                 <button
                   type="submit"
-                  className="px-4 py-2 text-xsm uppercase bg-[#374df5] text-white"
+                  className="px-4 py-2 text-xsm uppercase bg-[#2187E5] text-white"
                 >
                   Apply
                 </button>
                 <button
                   type="button"
-                  className="px-4 py-2 text-xsm uppercase bg-[#374df5] text-white"
+                  className="px-4 py-2 text-xsm uppercase bg-[#2187E5] text-white"
                   onClick={() => handleClearFilter()}
                 >
                   Clear filter

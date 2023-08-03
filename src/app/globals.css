@@ -24,7 +24,7 @@
     @apply py-2 px-3 rounded-3xl bg-surface-1 text-[#222226] text-xs;
   }
   .button-active{
-    @apply py-2 px-3 rounded-3xl bg-surface-1 text-[#222226] text-xs border-[#374df5] border-[1px] border-solid;
+    @apply py-2 px-3 rounded-3xl bg-[#2187E5] text-[#222226] text-xs border-[1px] border-solid text-white;
   }
   .bg1{
     @apply bg-[#222226] bg-opacity-[0.4];
@@ -33,10 +33,10 @@
     @apply bg-[#a4a9b3] py-[2px] px-2 mt-3 rounded-lg text-xs;
   }
   .buttonTab{
-    @apply text-xsm text-[#374df5] px-2 py-1;
+    @apply text-xsm text-black px-2 py-1;
   }
   .buttonTab-active{
-    @apply bg-[#374DF526] text-xsm text-[#374df5] px-2 py-[2px] rounded-lg;
+    @apply bg-[#374DF526] text-xsm text-white bg-[#2187E5]  px-2 py-[2px] rounded-lg;
   }
   .truncate {
     @apply overflow-hidden text-ellipsis whitespace-nowrap;

@@ -34,7 +34,7 @@ const HeaderRow: React.FC<Props> = ({
               key={id}
               className={`text-basic text-xs font-bold not-italic leading-4 ${
                 column.accessorKey === "player.name" ? "px-2" : "px-4"
-              } py-2 border-solid border-[#CDDDED] ${
+              } py-2 border-solid border-[#2187E5] ${
                 id === 1 ? "text-start px-0" : ""
               } ${column.sorted ? "hover:cursor-pointer" : "cursor-auto"}`}
               onClick={() => handleColumnDetailClick(column.accessorKey)}
