@@ -9,6 +9,11 @@ let columns = [
         sorted: false,
       },
       {
+        header: "Team",
+        accessorKey: "team.id",
+        sorted: false,
+      },
+      {
         header: "Player",
         accessorKey: "player.name",
         sorted: false,
@@ -60,6 +65,11 @@ let columns = [
         sorted: false,
       },
       {
+        header: "Team",
+        accessorKey: "team.id",
+        sorted: false,
+      },
+      {
         header: "Player",
         accessorKey: "player.name",
         sorted: false,
@@ -106,6 +116,11 @@ let columns = [
         sorted: false,
       },
       {
+        header: "Team",
+        accessorKey: "team.id",
+        sorted: false,
+      },
+      {
         header: "Player",
         accessorKey: "player.name",
         sorted: false,
@@ -144,6 +159,11 @@ let columns = [
       {
         header: "ID",
         accessorKey: "player.id",
+        sorted: false,
+      },
+      {
+        header: "Team",
+        accessorKey: "team.id",
         sorted: false,
       },
       {
@@ -193,6 +213,11 @@ let columns = [
         sorted: false,
       },
       {
+        header: "Team",
+        accessorKey: "team.id",
+        sorted: false,
+      },
+      {
         header: "Player",
         accessorKey: "player.name",
         sorted: false,
@@ -231,6 +256,11 @@ let columns = [
       {
         header: "ID",
         accessorKey: "player.id",
+        sorted: false,
+      },
+      {
+        header: "Team",
+        accessorKey: "team.id",
         sorted: false,
       },
       {

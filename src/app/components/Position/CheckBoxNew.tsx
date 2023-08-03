@@ -5,7 +5,8 @@ type CheckboxInputProps = {
   name: string;
   defaultChecked: boolean;
   value: string;
-  onChange? : (value: string, checked:boolean) => void;
+  onChange?: (value: string, checked: boolean) => void;
+  flag?: string;
 };
 
 const CheckboxInputNew: React.FC<CheckboxInputProps> = ({
@@ -13,14 +14,15 @@ const CheckboxInputNew: React.FC<CheckboxInputProps> = ({
   name,
   defaultChecked,
   value,
-  onChange
+  onChange,
+  flag,
 }) => {
   const { register } = useFormContext();
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (onChange) {
-      onChange(e.target.name,e.target.checked); // Call the onChange function with the checkbox value
+      onChange(e.target.name, e.target.checked); // Call the onChange function with the checkbox value
     }
-  }
+  };
   return (
     <div>
       <label className="flex items-center gap-1">
@@ -29,8 +31,24 @@ const CheckboxInputNew: React.FC<CheckboxInputProps> = ({
           defaultChecked={defaultChecked}
           {...register(name)}
           value={value}
-          onChange={(e)=>handleChange(e)}
+          onChange={(e) => handleChange(e)}
         />
+        {flag && flag === "team" ? (
+          <img
+            src={`https://apisf.p2pcdn.xyz/api/v1/team/${name}/image`}
+            className="w-4 h-4"
+            alt="Team flag"
+          />
+        ) : flag === "nationality" ? (
+          <img
+            src={`https://www.sofascore.com/static/images/flags/${name.toLocaleLowerCase()}.png`}
+            className="w-4 h-4"
+            alt="Nationality flag"
+          />
+        ) : (
+          ""
+        )}
+
         {label}
       </label>
     </div>

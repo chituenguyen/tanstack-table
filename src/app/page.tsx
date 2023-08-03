@@ -97,7 +97,7 @@ const IndexPage = () => {
     setPage(1);
     columns.map((item) => {
       if (item.name === name) {
-        setSorted("-" + columns[item.id].data[2].accessorKey);
+        setSorted("-" + columns[item.id].data[3].accessorKey);
       }
     });
   };

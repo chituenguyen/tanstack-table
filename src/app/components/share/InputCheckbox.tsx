@@ -80,7 +80,7 @@ const OptionButton: React.FC<Props> = ({ options, name, label }) => {
           </label>
         </div>
       </div>
-      <div className="grid grid-cols-4 mt-2">
+      <div className="grid grid-cols-4 mt-2 gap-2">
         {options.map((item) => (
           <CheckboxInputNew
             key={item.value}
@@ -89,6 +89,7 @@ const OptionButton: React.FC<Props> = ({ options, name, label }) => {
             defaultChecked={checkboxes.includes((item.id).toString())}
             value={name}
             onChange={handleCheckboxChange}
+            flag = {name}
           />
         ))}
       </div>
