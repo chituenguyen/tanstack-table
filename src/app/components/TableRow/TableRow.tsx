@@ -16,7 +16,7 @@ const TableRow: React.FC<Props> = ({ index, row, columns }) => {
   return (
     <tr
       key={index}
-      className={`text-center ${index % 2 === 1 ? "bg-surface-1" : ""}`}
+      className={`text-center ${index % 2 === 1 ? "bg-surface-1" : ""} border-[#cdded] border-x border-y`}
     >
       {columns.map((column) => {
         const accessorKeys = column.accessorKey.split("."); // Split the accessorKey by '.' to access nested properties
@@ -26,12 +26,11 @@ const TableRow: React.FC<Props> = ({ index, row, columns }) => {
             cellData = cellData[key];
           }
         });
-        console.log(column);
         return (
           <td
             key={column.accessorKey}
             className={`${
-              column.accessorKey === "player.name" ? "text-start" : "text-center"
+              column.accessorKey === "player.name" ? "text-start px-2" : "text-center"
             } ${
               column.accessorKey === "rating"
                 ? cellData >= 9
@@ -44,7 +43,7 @@ const TableRow: React.FC<Props> = ({ index, row, columns }) => {
                   ? "text-[#D8B62A]"
                   : "text-[#FA5151]"
                 : ""
-            } text-basic text-xs font-normal py-2 leading-smc border-b border-[#CDDDED] ${column.accessorKey === "team.id"?"flex justify-center":""}`}
+            } text-basic text-xs font-normal py-2 leading-smc border-r border-[#CDDDED] ${column.accessorKey === "team.id"?"flex justify-center":""}`}
           >
             {column.accessorKey === "player.id" && column.header === "ID" ? (
               index + 1

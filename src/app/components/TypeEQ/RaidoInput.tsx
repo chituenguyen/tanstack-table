@@ -10,8 +10,8 @@ const RadioInput: React.FC<RadioInputProps> = ({ label, value }) => {
 
   return (
     <div>
-      <label className="flex items-center gap-1">
-        <input type="radio" value={value} {...register("typeEQ")} />
+      <label className="flex items-center gap-1 hover:cursor-pointer" htmlFor={value}>
+        <input type="radio" id={value} value={value} {...register("typeEQ")} className="hover:cursor-pointer" />
         {label}
       </label>
     </div>

@@ -1,13 +1,13 @@
-// useOpenTeam.js
+// useOpen.js
 import React, { createContext, useContext, useState } from "react";
 
-const OpenTeamContext = createContext();
+const OpenContext = createContext();
 
-export function useOpenTeam() {
-  return useContext(OpenTeamContext);
+export function useOpen() {
+  return useContext(OpenContext);
 }
 
-export function OpenTeamProvider({ children }) {
+export function OpenProvider({ children }) {
   const [openTeam, setOpenTeam] = useState(false);
   const [openNation, setopenNation] = useState(false);
 
@@ -20,10 +20,10 @@ export function OpenTeamProvider({ children }) {
   };
 
   return (
-    <OpenTeamContext.Provider
+    <OpenContext.Provider
       value={{ openTeam, openNation, updateValueTeam, updateValueNation }}
     >
       {children}
-    </OpenTeamContext.Provider>
+    </OpenContext.Provider>
   );
 }

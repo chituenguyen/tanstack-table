@@ -31,7 +31,7 @@ import Nationality from "./components/Nationality/Nationality";
 import HeaderRow from "./components/HeaderTable/HeaderTable";
 import TableRow from "./components/TableRow/TableRow";
 import ShowTeam from "./components/Team/ShowTeam";
-import { OpenTeamProvider } from "./hooks/useOpenTeamAndNation";
+import { OpenProvider } from "./hooks/useOpenTeamAndNation";
 import ShowNationality from "./components/Nationality/ShowNationality";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { ToastContainer, toast } from "react-toastify";
@@ -64,7 +64,7 @@ const IndexPage = () => {
 
   const methods = useForm({
     defaultValues: {
-      typeEQ: "",
+      typeEQ: "o",
     },
     shouldUnregister: false,
   });
@@ -95,6 +95,8 @@ const IndexPage = () => {
   const handleGroupClick = (name: string) => {
     setGroup(name);
     setPage(1);
+    setAccumulation(Acumalation[0].value)
+    setMinApps(minAppOptions[0].value)
     columns.map((item) => {
       if (item.name === name) {
         setSorted("-" + columns[item.id].data[3].accessorKey);
@@ -116,6 +118,7 @@ const IndexPage = () => {
   const [columnDetail, setColumnDetail] = useState(initialData);
 
   const onSubmit = (data: any) => {
+    // console.log(data)
     const selected = Object.keys(data).filter(
       (key) => data[key] == true || Array.isArray(data[key])
     );
@@ -133,7 +136,7 @@ const IndexPage = () => {
       (key) => data[key] == "nationality"
     );
     const filterValue =
-      (typeEQSelected.length > 0 ? "type.EQ." + typeEQSelected + "," : "") +
+      (typeEQSelected.length > 1 ? "type.EQ." + typeEQSelected + "," : "") +
       (preferredFoot.length > 1
         ? "preferredFoot.EQ." + preferredFoot + ","
         : "") +
@@ -155,6 +158,9 @@ const IndexPage = () => {
     queryClient.refetchQueries("tournamentStatisticsDetail");
   };
 
+  const handleClearFilter = () =>{
+    console.log(methods.getValues())
+  }
   return (
     <div className="p-6  containerPage font-beVietNam">
       <div className="w-[889px] py-4 px-2 flex flex-col gap-3.5 shadow-custom rounded-2xl min-h-[700px]">
@@ -236,7 +242,7 @@ const IndexPage = () => {
                 <Position />
                 <PreferredFoot />
               </div>
-              <OpenTeamProvider>
+              <OpenProvider>
                 <div>
                   <div className="flex justify-between">
                     <Nationality />
@@ -253,18 +259,25 @@ const IndexPage = () => {
                     </>
                   )}
                 </div>
-              </OpenTeamProvider>
+              </OpenProvider>
               <Tab
                 tabs={groupType}
                 initialData={initialData}
                 onInitialDataChange={handleInitialDataChange}
               />
-              <div>
+              <div className="flex gap-5">
                 <button
                   type="submit"
                   className="px-4 py-2 text-xsm uppercase bg-[#374df5] text-white"
                 >
                   Apply
+                </button>
+                <button
+                  type="button"
+                  className="px-4 py-2 text-xsm uppercase bg-[#374df5] text-white"
+                  onClick={()=>handleClearFilter()}
+                >
+                  Clear filter
                 </button>
               </div>
             </form>

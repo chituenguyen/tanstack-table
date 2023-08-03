@@ -39,7 +39,7 @@ const Tab: React.FC<TabProps> = ({
   const notify = () => toast("Maxium number of filter fields already selected!");
   const handleCheckboxChange = (item: any, isChecked: boolean) => {
     if (isChecked) {
-      if (initialData.data.length >= 8) {
+      if (initialData.data.length >= 9) {
         notify()
       } else {
         const newData = {
@@ -92,7 +92,7 @@ const Tab: React.FC<TabProps> = ({
         ))}
       </div>
       <div className="px-2 flex text-white gap-2">
-        {initialData.data.slice(2).map((item, index) => (
+        {initialData.data.slice(3).map((item, index) => (
           <button
             key={index}
             className="button-check"

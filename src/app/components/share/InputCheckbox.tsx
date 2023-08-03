@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import CheckboxInputNew from "../Position/CheckBoxNew";
+import { useOpen } from "@/app/hooks/useOpenTeamAndNation";
 
 type Option = {
   [key: string]: any; // Allow any other additional properties
@@ -17,6 +18,8 @@ const OptionButton: React.FC<Props> = ({ options, name, label }) => {
   const { setValue } = useFormContext();
   const [selectAll, setSelectAll] = useState(false);
   const [checkboxes, setCheckboxes] = useState<string[]>([]);
+  const { openNation, openTeam } = useOpen();
+
 
   const handleSelectAll = () => {
     setSelectAll(true);
@@ -47,16 +50,20 @@ const OptionButton: React.FC<Props> = ({ options, name, label }) => {
 
   // Check if all individual checkboxes are selected
   useEffect(() => {
+    if(!openNation && label==="Nationality"){
+      setCheckboxes([]);
+    }
+    if(!openTeam && label==="Team"){
+      setCheckboxes([]);
+    }
     if (checkboxes.length > 0 && checkboxes.length === options.length) {
       setSelectAll(true);
     } else {
       setSelectAll(false);
     }
 
-    // Update the value of the "selectedOptions" field
     setValue(name, checkboxes);
-  }, [checkboxes, options, setValue, name]);
-
+  }, [checkboxes, options, setValue, name, openNation,label]);
   return (
     <div className="w-full">
       <div className="flex justify-between">
@@ -85,11 +92,11 @@ const OptionButton: React.FC<Props> = ({ options, name, label }) => {
           <CheckboxInputNew
             key={item.value}
             label={item.name}
-            name={(item.id).toString()}
-            defaultChecked={checkboxes.includes((item.id).toString())}
+            name={item.id.toString()}
+            defaultChecked={checkboxes.includes(item.id.toString())}
             value={name}
             onChange={handleCheckboxChange}
-            flag = {name}
+            flag={name}
           />
         ))}
       </div>
