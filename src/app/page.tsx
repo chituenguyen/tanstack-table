@@ -178,15 +178,22 @@ const IndexPage = () => {
             {/* SummaryMin  */}
             <form className="text-xsm not-italic font-normal leading-4 flex gap-5">
               {minAppOptions.map((item) => (
-                <div key={item.value} className="flex gap-2 items-center">
+                <div
+                  key={item.value}
+                  className="flex gap-2 items-center hover:cursor-pointer"
+                >
                   <input
                     type="radio"
+                    id={item.value} // Set the 'id' attribute for the input element
                     value={item.value}
                     name="minApps"
                     checked={minApps === item.value}
                     onChange={() => handleChangeMinApps(item.value)}
+                    className="hover:cursor-pointer"
                   />
-                  <label>{item.label}</label>
+                  <label htmlFor={item.value} className="hover:cursor-pointer">
+                    {item.label}
+                  </label>
                 </div>
               ))}
             </form>
