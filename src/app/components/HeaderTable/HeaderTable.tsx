@@ -13,6 +13,8 @@ type Props = {
   selectedColumns: Column[];
   sorted: string;
   handleColumnClick: (accessorKey: string) => void;
+  order: string;
+  handleColumnDetailClick: (accessorKey: string) => void;
 };
 
 const HeaderRow: React.FC<Props> = ({
@@ -21,6 +23,8 @@ const HeaderRow: React.FC<Props> = ({
   selectedColumns,
   sorted,
   handleColumnClick,
+  order,
+  handleColumnDetailClick,
 }) => {
   return (
     <tr className="bg-surface-1">
@@ -32,14 +36,40 @@ const HeaderRow: React.FC<Props> = ({
                 column.accessorKey === "player.name" ? "px-2" : "px-4"
               } py-2 border-solid border-[#CDDDED] ${
                 id === 1 ? "text-start px-0" : ""
-              }`}
+              } ${column.sorted ? "hover:cursor-pointer" : "cursor-auto"}`}
+              onClick={() => handleColumnDetailClick(column.accessorKey)}
             >
               <p
                 className={`flex ${
-                  column.accessorKey === "player.name" ? "text-start" : "items-center"
+                  column.accessorKey === "player.name"
+                    ? "text-start"
+                    : "items-center"
                 } flex-col`}
               >
                 <p>{column.header}</p>
+                {column.sorted ? (
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    className={`${
+                      column.accessorKey === order ? "rotate-180" : ""
+                    }`}
+                  >
+                    <path
+                      fill={`${
+                        column.accessorKey === order ||
+                        "-" + column.accessorKey === order
+                          ? "#2187E5"
+                          : ""
+                      }`}
+                      d="M13 5H3l5 8z"
+                      fill-rule="evenodd"
+                    ></path>
+                  </svg>
+                ) : (
+                  ""
+                )}
               </p>
             </th>
           ))

@@ -47,6 +47,7 @@ interface InitialData {
 const IndexPage = () => {
   const [page, setPage] = useState(1);
   const [sorted, setSorted] = useState("-goals");
+  const [order, setOrder] = useState("-goals"); // for details
   const [group, setGroup] = useState("Summary");
   const [minApps, setMinApps] = useState(minAppOptions[0].value);
   const [accumulation, setAccumulation] = useState(Acumalation[0].value);
@@ -82,8 +83,17 @@ const IndexPage = () => {
     minApps,
     accumulation
   ); // Use the custom hook
-  const { data: apiResponseDetail, isLoading: loadingDetail, refetch:refetchDetail } =
-    useTournamentStatisticsDetail(page, fields, filter, accumulationDetail);
+  const {
+    data: apiResponseDetail,
+    isLoading: loadingDetail,
+    refetch: refetchDetail,
+  } = useTournamentStatisticsDetail(
+    page,
+    fields,
+    filter,
+    accumulationDetail,
+    order
+  );
   const { data: apiTeamAndNation, isLoading: loadingTeamAnndNation } =
     useTeamAndNation(); // customize hook
   const handleColumnClick = (header: string) => {
@@ -93,6 +103,16 @@ const IndexPage = () => {
       setSorted("-" + header);
     }
     setPage(1);
+  };
+  const handleColumnDetailClick = (header: string) => {
+    console.log(header)
+    if (order === "-" + header) {
+      setOrder(header);
+    } else {
+      setOrder("-" + header);
+    }
+    setPage(1);
+    queryClient.refetchQueries("tournamentStatisticsDetail");
   };
   const handleGroupClick = (name: string) => {
     setGroup(name);
@@ -166,9 +186,8 @@ const IndexPage = () => {
   const handleClearFilter = () => {
     setClearFilter(true);
     methods.reset();
-    setFilter("")
+    setFilter("");
     queryClient.refetchQueries("tournamentStatisticsDetail");
-
   };
   return (
     <div className="p-6  containerPage font-beVietNam">
@@ -307,6 +326,8 @@ const IndexPage = () => {
                 selectedColumns={selectedColumns}
                 sorted={sorted}
                 handleColumnClick={handleColumnClick}
+                order={order}
+                handleColumnDetailClick={handleColumnDetailClick}
               />
               <tbody>
                 {group === "Detailed"
